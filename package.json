@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "A collection of JS utility functions and custom elements for progressively enhanced error handling for the client-side",
   "main": "index.js",
+  "module": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "web-dev-server --open demo/ --node-resolve",
+    "start:watch": "web-dev-server --open demo/ --node-resolve --watch",
+    "test": "web-test-runner test/**/*.test.js --coverage --node-resolve",
+    "test:watch": "web-test-runner test/**/*.test.js --node-resolve --watch"
   },
   "repository": {
     "type": "git",
@@ -18,5 +22,10 @@
   "bugs": {
     "url": "https://github.com/practical-computer/practical-error-handling-js/issues"
   },
-  "homepage": "https://github.com/practical-computer/practical-error-handling-js#readme"
+  "homepage": "https://github.com/practical-computer/practical-error-handling-js#readme",
+  "devDependencies": {
+    "@open-wc/testing": "^4.0.0",
+    "@web/dev-server": "^0.4.6",
+    "@web/test-runner": "^0.20.1"
+  }
 }
