@@ -7,8 +7,8 @@
   "scripts": {
     "start": "web-dev-server --open demo/ --node-resolve",
     "start:watch": "web-dev-server --open demo/ --node-resolve --watch",
-    "test": "web-test-runner test/**/*.test.js --coverage --node-resolve",
-    "test:watch": "web-test-runner test/**/*.test.js --node-resolve --watch",
+    "test": "web-test-runner test/**/test-runner.test.js --coverage --node-resolve",
+    "test:watch": "web-test-runner test/**/test-runner.test.js --node-resolve --watch",
     "docs": "jsdoc -c jsdoc.config.js"
   },
   "repository": {
