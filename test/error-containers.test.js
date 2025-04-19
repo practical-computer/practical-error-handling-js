@@ -82,20 +82,25 @@ suite('Error Container Utilities', async () => {
     assert.equal(1, clone.querySelectorAll(`[data-error-message]`).length)
   })
 
-  test(`hasPreservedErrorForType`, async() => {
+  test(`hasPreservedErrorForType/getPreservedErrorForType`, async() => {
     const errorList = await fixture(html`
       <ul>
         <li data-visible data-error-type="error_1">An ad-hoc error 1</li>
         <li data-visible data-error-type="error_2">An ad-hoc error 2</li>
         <li data-visible data-error-type="custom_1" data-preserve>Preserved error 1</li>
-        <li data-error-type="custom_2" data-preserve>Preserved error 3</li>
+        <li data-error-type="custom_2" data-preserve>Preserved error 2</li>
         <li data-preserve>Error without type</li>
       </ul>
     `)
 
     assert.equal(false, ErrorContainerUtils.hasPreservedErrorForType(errorList, `error_1`))
+    assert.isUndefined(ErrorContainerUtils.getPreservedErrorForType(errorList, `error_1`))
+
     assert.equal(true, ErrorContainerUtils.hasPreservedErrorForType(errorList, `custom_1`))
+    assert.equal("Preserved error 1", ErrorContainerUtils.getPreservedErrorForType(errorList, `custom_1`).textContent)
+
     assert.equal(true, ErrorContainerUtils.hasPreservedErrorForType(errorList, `custom_2`))
+    assert.equal("Preserved error 2", ErrorContainerUtils.getPreservedErrorForType(errorList, `custom_2`).textContent)
   })
 
   test(`getErrorForType`, async() => {

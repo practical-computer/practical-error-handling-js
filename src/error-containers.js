@@ -54,13 +54,24 @@ export function getPreservedErrors(errorListElement) {
 
 /**
  * Checks the given `errorListElement` for any preserved errors ({@link getPreservedErrors}) where the `data-error-type`
- * matches` `type``
+ * matches` `type`
  * @params {Element} {@link getErrorList}
  * @params {string} type the error type
  * @returns {boolean}
  */
 export function hasPreservedErrorForType(errorListElement, type) {
-  return [...getPreservedErrors(errorListElement)].some((x) => {
+  return getPreservedErrorForType(errorListElement, type) != undefined
+}
+
+/**
+ * Checks the given `errorListElement` for any preserved errors ({@link getPreservedErrors}) where the `data-error-type`
+ * matches` `type` and returns the first match if present
+ * @params {Element} {@link getErrorList}
+ * @params {string} type the error type
+ * @returns {Element|null}
+ */
+export function getPreservedErrorForType(errorListElement, type) {
+  return [...getPreservedErrors(errorListElement)].find((x) => {
     return x.getAttribute(`data-error-type`)?.toString() == type.toString()
   })
 }
