@@ -158,8 +158,18 @@ suite('Element Utilities', async () => {
         </section>
 
         <section>
-          <input type="email" id="email-field" aria-describedby="email-field-errors" data-server-side-errors>
+          <input type="email" id="email-field" aria-describedby="email-field-errors" data-initial-load-errors>
             <section id="email-field-errors" data-error-container>
+              <ul>
+                <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
+                <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              </ul>
+            </section>
+        </section>
+
+        <section>
+          <input type="number" id="confirm-count-field" aria-describedby="confirm-count-field-errors" value="10" max="5" data-initial-load-errors>
+            <section id="confirm-count-field-errors" data-error-container>
               <ul>
                 <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
                 <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
@@ -183,6 +193,7 @@ suite('Element Utilities', async () => {
     assert.equal(2, document.querySelectorAll(`#count-field-errors [data-error-type]`).length)
     assert.equal(2, document.querySelectorAll(`#title-field-errors [data-error-type]`).length)
     assert.equal(2, document.querySelectorAll(`#email-field-errors [data-error-type]`).length)
+    assert.equal(2, document.querySelectorAll(`#confirm-count-field-errors [data-error-type]`).length)
     assert.equal(2, document.querySelectorAll(`#fallback-error-section [data-error-type]`).length)
 
     ElementUtils.reflectConstraintValidationForInitialLoad(form)
@@ -190,6 +201,7 @@ suite('Element Utilities', async () => {
     assert.equal(2, document.querySelectorAll(`#count-field-errors [data-error-type]`).length)
     assert.equal(1, document.querySelectorAll(`#title-field-errors [data-error-type]`).length)
     assert.equal(2, document.querySelectorAll(`#email-field-errors [data-error-type]`).length)
+    assert.equal(2, document.querySelectorAll(`#confirm-count-field-errors [data-error-type]`).length)
     assert.equal(2, document.querySelectorAll(`#fallback-error-section [data-error-type]`).length)
 
     assert.equal(1, document.querySelectorAll(`#title-field-errors [data-error-type="already_taken"]`).length)
