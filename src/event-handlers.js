@@ -5,6 +5,14 @@ import {
   reflectConstraintValidationForElement
 } from './element-utilities.js'
 
+/**
+ * Calls {@link reflectConstraintValidationForElement} for every `element` in `event.currentTarget.elements`
+ *
+ * Calls `event.preventDefault()` if form it not valid (via `checkValidity()`)
+ *
+ * Focuses on the first invalid input, using `input:invalid`
+ * @param {Event} event
+ */
 export function validateFormSubmitEventHandler(event) {
   let formElement = event.currentTarget
 
@@ -25,6 +33,12 @@ export function validateFormSubmitEventHandler(event) {
   firstInvalidInputEl?.focus();
 }
 
+/**
+ * Calls {@link reflectConstraintValidationForElement} if the `event.target` has
+ * `data-live-validation` and does not have `data-skip-validation`
+ *
+ * @param {Event} event
+ */
 export function liveInputValidationEventHandler(event) {
   let element = event.target
   if(skipInputValidation(element)){ return }
@@ -32,6 +46,11 @@ export function liveInputValidationEventHandler(event) {
   reflectConstraintValidationForElement(element)
 }
 
+/**
+ * Calls {@link reflectConstraintValidationForElement} if the `event.target` has
+ * `data-focusout-validation` and does not have `data-skip-validation`
+ * @param {Event} event
+ */
 export function focusoutValidationEventHandler(event) {
   let element = event.target
   if(skipFocusoutValidation(element)){ return }
