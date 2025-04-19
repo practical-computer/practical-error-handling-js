@@ -1,8 +1,8 @@
-import { reflectConstraintValidationForElement } from './rendering.js'
 import {
   skipInputValidation,
   skipFocusoutValidation,
   skipValidation,
+  reflectConstraintValidationForElement
 } from './element-utilities.js'
 
 export function validateFormSubmitEventHandler(event) {
@@ -19,6 +19,7 @@ export function validateFormSubmitEventHandler(event) {
   if (!isFormValid) {
     event.preventDefault();
   }
+
   // Set the focus to the first invalid input.
   const firstInvalidInputEl = formElement.querySelector('input:invalid');
   firstInvalidInputEl?.focus();
