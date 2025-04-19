@@ -1,8 +1,8 @@
 import {
-  liveInputValidationEvent,
-  focusoutValidationEvent,
+  liveInputValidationEventHandler,
+  focusoutValidationEventHandler,
   validateFormSubmitEventHandler
-} from 'event-handlers.js'
+} from './event-handlers.js'
 
 import {
   reflectConstraintValidationForInitialLoad
@@ -21,10 +21,10 @@ export class ErrorHandlingElement extends HTMLElement {
     if(!this.isConnected){ return }
 
     this.form.setAttribute('novalidate', '')
-    this.form.addEventListener('input', liveInputValidationEvent)
-    this.form.addEventListener('focusout', focusoutValidationEvent)
-    this.form.addEventListener('submit', validateFormSubmit)
+    this.form.addEventListener('input', liveInputValidationEventHandler)
+    this.form.addEventListener('focusout', focusoutValidationEventHandler)
+    this.form.addEventListener('submit', validateFormSubmitEventHandler)
 
-    setValidationStateForInitialLoad(this.form)
+    reflectConstraintValidationForInitialLoad(this.form)
   }
 }

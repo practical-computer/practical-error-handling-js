@@ -6,6 +6,7 @@
     "./element-utilities": "./src/element-utilities.js",
     "./error-containers": "./src/error-containers.js",
     "./error-handling-element": "./src/error-handling-element.js",
+    "./pf-error-handling-element": "./pf-error-handling-element.js",
     "./error-mapping": "./src/error-mapping.js",
     "./event-handlers": "./src/event-handlers.js",
     "./rendering": "./src/rendering.js",
