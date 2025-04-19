@@ -237,6 +237,49 @@ suite('Rendering', async () => {
     assert.equal(0, errorList.querySelectorAll(`[data-visible]`).length)
   })
 
+  test(`clearErrorListsInForm`, async() => {
+    const form = await fixture(html`
+      <form aria-describedby="fallback-error-section">
+        <section>
+          <input type="text" id="name-field" aria-describedby="name-field-errors" required>
+            <section id="name-field-errors" data-error-container>
+              <ul>
+                <li data-preserve data-error-type="valueMissing">The preserved message</li>
+                <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              </ul>
+            </section>
+        </section>
+
+        <section>
+          <input type="email" id="email-field" aria-describedby="email-field-errors" required>
+            <section id="email-field-errors" data-error-container>
+              <ul>
+                <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
+                <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              </ul>
+            </section>
+        </section>
+
+        <section id="fallback-error-section" data-error-container>
+          <ul>
+            <li data-visible data-error-type="error_1">An ad-hoc fallback error 1</li>
+            <li data-visible data-error-type="custom_1" data-preserve>Preserved fallback error</li>
+          </ul>
+        </section>
+      </form>
+    `)
+
+    assert.equal(2, document.querySelectorAll(`#name-field-errors [data-error-type]`).length)
+    assert.equal(2, document.querySelectorAll(`#email-field-errors [data-error-type]`).length)
+    assert.equal(2, document.querySelectorAll(`#fallback-error-section [data-error-type]`).length)
+
+    Rendering.clearErrorListsInForm(form)
+
+    assert.equal(1, document.querySelectorAll(`#name-field-errors [data-error-type]`).length)
+    assert.equal(0, document.querySelectorAll(`#email-field-errors [data-error-type]`).length)
+    assert.equal(1, document.querySelectorAll(`#fallback-error-section [data-error-type]`).length)
+  })
+
   test(`errorMessageListItem`, async() => {
     const container = await fixture(html`
       <div>

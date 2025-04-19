@@ -84,3 +84,19 @@ export function clearErrorList(errorListElement) {
 
   errorListElement.replaceChildren(...preservedErrors)
 }
+
+/**
+ * Clears all the error containers for the `elements` in the given `form`, including its fallback error section
+ * @param {FormElement} the form to clear
+ */
+export function clearErrorListsInForm(form) {
+  for(const element of form.elements) {
+    if(hasErrorContainer(element)) {
+      clearErrorList(getErrorList(element))
+    }
+  }
+
+  if(hasErrorContainer(form)) {
+    clearErrorList(getErrorList(form))
+  }
+}
