@@ -5,6 +5,7 @@ module.exports = {
     "source": {
       "include": [
           "src",
+          "src/plugins",
           "README.md"
       ],
     }

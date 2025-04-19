@@ -43,7 +43,7 @@ suite('Request Processing', async () => {
 
     const response = new Response(JSON.stringify(errors), {status: 400})
 
-    await RequestProcessing.applyErrorMappingToFormFromEntityResponseResponse(form, response)
+    await RequestProcessing.applyErrorMappingToFormFromUnprocessableEntityResponseResponse(form, response)
 
     assert.equal(2, form.querySelectorAll(`[data-error-type]`).length)
   })
@@ -87,7 +87,7 @@ suite('Request Processing', async () => {
 
     const response = new Response(JSON.stringify(errors), {status: 422})
 
-    await RequestProcessing.applyErrorMappingToFormFromEntityResponseResponse(form, response)
+    await RequestProcessing.applyErrorMappingToFormFromUnprocessableEntityResponseResponse(form, response)
 
     assert.equal(1, form.querySelectorAll(`[data-error-type]`).length)
     assert.equal(1, form.querySelectorAll(`[data-error-type][data-error-type="ad_hoc_server_error_1"]`).length)
