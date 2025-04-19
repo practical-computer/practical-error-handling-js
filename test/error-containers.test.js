@@ -118,4 +118,19 @@ suite('Error Container Utilities', async () => {
     assert.equal("Preserved error 1", ErrorContainerUtils.getErrorForType(errorList, `custom_1`).textContent)
     assert.equal("Preserved error 3", ErrorContainerUtils.getErrorForType(errorList, `custom_2`).textContent)
   })
+
+  test(`markAsPreservedError`, async () => {
+    const errorList = await fixture(html`
+      <ul>
+        <li data-visible data-error-type="error_1">An ad-hoc error 1</li>
+        <li data-visible data-error-type="error_2">Error to mark as preserved</li>
+      </ul>
+    `)
+
+    assert.equal(false, ErrorContainerUtils.hasPreservedErrorForType(errorList, `error_2`))
+
+    ErrorContainerUtils.markAsPreservedError(errorList.querySelector(`[data-error-type="error_2"]`))
+
+    assert.equal(true, ErrorContainerUtils.hasPreservedErrorForType(errorList, `error_2`))
+  })
 });

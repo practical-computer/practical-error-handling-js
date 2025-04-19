@@ -77,6 +77,14 @@ export function getPreservedErrorForType(errorListElement, type) {
 }
 
 /**
+ * Marks the given element as a preserved error message, with the `data-preserve` attribute
+ * @params {Element} element the error element to mark as preserved
+ */
+export function markAsPreservedError(element) {
+  element.setAttribute(`data-preserve`, true)
+}
+
+/**
  * Returns the `element` that has the given `data-error-type` if it's present.
  * @params {Element} {@link getErrorList}
  * @params {string} type the error type
