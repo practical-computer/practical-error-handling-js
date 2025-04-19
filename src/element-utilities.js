@@ -45,7 +45,7 @@ export function reflectConstraintValidationForElement(element) {
   if(!element.checkValidity){ return }
   const isInputValid = element.checkValidity();
   if (!element.required && element.value === '' && isInputValid) {
-    setValidityStateAttributes(element, false)
+    setValidityStateAttributes(element, true)
   } else {
     setValidityStateAttributes(element, isInputValid)
   }

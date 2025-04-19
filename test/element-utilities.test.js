@@ -134,6 +134,33 @@ suite('Element Utilities', async () => {
     assert.equal(0, document.querySelectorAll(`#name-field-errors li`).length)
   })
 
+  test(`reflectConstraintValidationForElement: element not required, value is blank`, async() => {
+    const container = await fixture(html`
+      <div>
+        <input type="text" id="name-field" aria-describedby="name-field-errors">
+        <section id="name-field-errors" data-error-container>
+          <ul>
+            <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
+            <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+          </ul>
+        </section>
+
+        <template id="pf-error-list-item-template">
+          <li><span>‼️</span> <span data-error-message></span></li>
+        </template>
+      </div>
+    `);
+
+    const input = container.querySelector(`input`)
+
+    ElementUtils.reflectConstraintValidationForElement(input)
+
+    assert.equal(false, input.hasAttribute(`data-is-invalid`))
+    assert.equal("false", input.getAttribute(`aria-invalid`))
+
+    assert.equal(0, document.querySelectorAll(`#name-field-errors li`).length)
+  })
+
   test(`reflectConstraintValidationForInitialLoad`, async() => {
     const form = await fixture(html`
       <form aria-describedby="fallback-error-section">
