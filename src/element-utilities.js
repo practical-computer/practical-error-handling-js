@@ -45,15 +45,30 @@ export function reflectConstraintValidationForElement(element) {
   if(!element.checkValidity){ return }
   const isInputValid = element.checkValidity();
   if (!element.required && element.value === '' && isInputValid) {
-    // Clear validation state
-    element.removeAttribute(`data-is-invalid`);
+    setValidityStateAttributes(element, false)
   } else {
-    // Toggle valid/invalid state data attribute
-    element.toggleAttribute(`data-is-invalid`, !isInputValid);
+    setValidityStateAttributes(element, isInputValid)
   }
-  // Update the `aria-invalid` state based on the input's validity.
-  element.setAttribute(`aria-invalid`, (!isInputValid).toString());
+
   renderConstraintValidationMessageForElement(element)
+}
+
+/**
+ * Adds/removes the `data-is-invalid` attribute based on the given `isValid`, and sets
+ * `aria-invalid` based on the given `isValid`
+ * @params {Element} element the element to apply the validity state attributes to
+ * @params {boolean} isValid whether or not the given element is valid
+ */
+export function setValidityStateAttributes(element, isValid) {
+  if (isValid) {
+    // Clear `data-is-invalid` attribute flag`
+    element.removeAttribute(`data-is-invalid`)
+  } else {
+    element.toggleAttribute(`data-is-invalid`, !isValid)
+  }
+
+  // Update the `aria-invalid` state based on the given validity boolean.
+  element.setAttribute(`aria-invalid`, (!isValid).toString());
 }
 
 /**

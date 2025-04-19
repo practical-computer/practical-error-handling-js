@@ -57,6 +57,38 @@ suite('Element Utilities', async () => {
     assert.equal(false, ElementUtils.skipValidation(el))
   })
 
+  test(`setValidityStateAttributes`, async() => {
+    const input = await fixture(html`
+      <input type="text" required value="a value">
+    `);
+
+    const customElement = await fixture(html`
+      <a-custom-element>Such as a rich text editor</a-custom-element>
+    `);
+
+    assert.equal(false, input.hasAttribute(`data-is-invalid`))
+    assert.equal(false, input.hasAttribute(`aria-invalid`))
+
+    ElementUtils.setValidityStateAttributes(input, false)
+    assert.equal(true, input.hasAttribute(`data-is-invalid`))
+    assert.equal("true", input.getAttribute(`aria-invalid`))
+
+    ElementUtils.setValidityStateAttributes(input, true)
+    assert.equal(false, input.hasAttribute(`data-is-invalid`))
+    assert.equal("false", input.getAttribute(`aria-invalid`))
+
+    assert.equal(false, customElement.hasAttribute(`data-is-invalid`))
+    assert.equal(false, customElement.hasAttribute(`aria-invalid`))
+
+    ElementUtils.setValidityStateAttributes(customElement, false)
+    assert.equal(true, customElement.hasAttribute(`data-is-invalid`))
+    assert.equal("true", customElement.getAttribute(`aria-invalid`))
+
+    ElementUtils.setValidityStateAttributes(customElement, true)
+    assert.equal(false, customElement.hasAttribute(`data-is-invalid`))
+    assert.equal("false", customElement.getAttribute(`aria-invalid`))
+  })
+
   test(`reflectConstraintValidationForElement`, async() => {
     const container = await fixture(html`
       <div>
