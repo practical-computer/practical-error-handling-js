@@ -1,3 +1,10 @@
+/**
+ * A utility function that the uses a `MutationObserver` to clone the
+ * children in the `sourceElement` into the `targetElement`, keeping the
+ * two elements (relatively) identical
+ * @param {Element} sourceElement the element to clone from
+ * @param {Element} targetElement the element to clone into
+ */
 export function cloneNodesObserver(sourceElement, targetElement) {
   // Options for the observer (which mutations to observe)
   const config = { childList: true, subtree: true };
