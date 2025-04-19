@@ -1,0 +1,7 @@
+[data-error-container]:not(:has([data-visible])) {
+  display: none;
+}
+
+[data-error-container] > ul > li:not([data-visible]) {
+  display: none;
+}
