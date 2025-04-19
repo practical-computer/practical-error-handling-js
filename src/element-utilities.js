@@ -56,3 +56,18 @@ export function reflectConstraintValidationForElement(element) {
   renderConstraintValidationMessageForElement(element)
 }
 
+/**
+ * Used for the initial loading of the given `form`, calls {@link reflectConstraintValidationForElement} for each
+ * non-blank item in `form.element` that does not have a `data-server-side-errors`
+ * @params {FormElement} form the form to reflect the initial Constraint Validation state for
+ */
+export function reflectConstraintValidationForInitialLoad(form) {
+  for(const element of form.elements) {
+    if(element.hasAttribute(`data-server-side-errors`)) {
+      continue; // do not change any elements that have server-side errors
+    }
+    if(element.value !=="" ){
+      reflectConstraintValidationForElement(element)
+    }
+  }
+}
