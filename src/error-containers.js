@@ -2,14 +2,18 @@ import { generateValidationMessage } from './element-utilities.js'
 
 
 /**
- * Returns the given `element`'s `aria-describedby` attribute`
+ * Returns the ID for the given `element`'s `aria-describedby` attribute of the element that has a
+ * `data-error-container` attribute`
  * @param {Element} element
- * @returns {string|undefined} the `aria-describedby` attribute` if present and non-black
+ * @returns {string|undefined} the `aria-describedby` attribute if present and the element has the `data-error-container` attribute`
  */
 export function getErrorContainerID(element) {
   const errorContainerID = element.getAttribute(`aria-describedby`)
   if(!errorContainerID || errorContainerID == ''){ return }
-  return errorContainerID
+
+  return errorContainerID.split(" ").find((x) => {
+    return document.getElementById(x)?.hasAttribute(`data-error-container`)
+  })
 }
 
 /**

@@ -63,7 +63,7 @@ suite('Element Utilities', async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors">
+        <section id="name-field-errors" data-error-container>
           <ul>
             <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
             <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
@@ -124,7 +124,7 @@ suite('Error Container Utilities', async () => {
     }, TypeError)
 
     const errorContainer = await fixture(html`
-       <section id="name-field-errors">
+       <section id="name-field-errors" data-error-container>
        </section>
     `)
 
@@ -263,7 +263,7 @@ suite('Rendering', async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors">
+        <section id="name-field-errors" data-error-container>
           <ul>
             <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
             <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
@@ -301,7 +301,7 @@ suite('Rendering', async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors">
+        <section id="name-field-errors" data-error-container>
           <ul>
             <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
             <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
@@ -334,7 +334,7 @@ suite('Rendering', async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors">
+        <section id="name-field-errors" data-error-container>
           <ul></ul>
         </section>
 
@@ -364,7 +364,7 @@ suite('Rendering', async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors">
+        <section id="name-field-errors" data-error-container>
           <ul>
             <li data-preserve data-error-type="valueMissing">The preserved message</li>
             <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
@@ -397,7 +397,7 @@ suite('Rendering', async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors">
+        <section id="name-field-errors" data-error-container>
           <ul>
             <li data-preserve data-error-type="valueMissing">The preserved message</li>
             <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
