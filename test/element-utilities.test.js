@@ -1,6 +1,6 @@
 import { html, fixture, assert } from '@open-wc/testing';
 
-import * as ElementUtils from '../element-utilities.js';
+import * as ElementUtils from '@practical-computer/error-handling/element-utilities';
 
 suite('Element Utilities', async () => {
   test('generateValidationMessage', async () => {

@@ -2,8 +2,16 @@
   "name": "@practical-computer/error-handling",
   "version": "1.0.0",
   "description": "A collection of JS utility functions and custom elements for progressively enhanced error handling for the client-side",
-  "main": "index.js",
-  "module": "index.js",
+  "exports": {
+    "./element-utilities": "./src/element-utilities.js",
+    "./error-containers": "./src/error-containers.js",
+    "./error-handling-element": "./src/error-handling-element.js",
+    "./error-mapping": "./src/error-mapping.js",
+    "./event-handlers": "./src/event-handlers.js",
+    "./rendering": "./src/rendering.js",
+    "./request-processing": "./src/request-processing.js",
+    "./plugins/mrujs": "./src/plugins/mrujs.js"
+  },
   "scripts": {
     "start": "web-dev-server --open demo/ --node-resolve",
     "start:watch": "web-dev-server --open demo/ --node-resolve --watch",

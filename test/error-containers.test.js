@@ -1,7 +1,7 @@
 import { html, fixture, assert } from '@open-wc/testing';
 
-import * as ElementUtils from '../element-utilities.js';
-import * as ErrorContainerUtils from '../error-containers.js';
+import * as ElementUtils from '@practical-computer/error-handling/element-utilities';
+import * as ErrorContainerUtils from '@practical-computer/error-handling/error-containers';
 
 suite('Error Container Utilities', async () => {
   test(`error container retrieval`, async () => {

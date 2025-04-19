@@ -1,6 +1,6 @@
 import { html, fixture, assert } from '@open-wc/testing';
 
-import * as Rendering from '../rendering.js';
+import * as Rendering from '@practical-computer/error-handling/rendering';
 
 suite('Rendering', async () => {
   test(`error list cleaning`, async () => {
