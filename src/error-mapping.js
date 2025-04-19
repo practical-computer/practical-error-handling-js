@@ -4,6 +4,7 @@ import {
 
 import {
   getErrorContainer,
+  getErrorListFromContainer,
   hasPreservedErrorForType,
   getPreservedErrorForType,
   markAsPreservedError,
@@ -66,7 +67,7 @@ export function applyErrorMappingToForm(form, errors) {
       setValidityStateAttributes(elementToInvalidate, false)
     }
 
-    let errorList = errorContainer.querySelector(`:scope > ul`)
+    let errorList = getErrorListFromContainer(errorContainer)
 
     const shouldBePreserved = hasPreservedErrorForType(errorList, error.type)
 

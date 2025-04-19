@@ -40,7 +40,16 @@ export function getErrorContainer(element) {
  * @returns {Element} The `ul` element inside the error container`
  */
 export function getErrorList(element) {
-  return getErrorContainer(element).querySelector(`:scope > ul`)
+  return getErrorListFromContainer(getErrorContainer(element))
+}
+
+/**
+ * Returns the `ul` inside of the error container (see {@link getErrorContainer })
+ * @param {Element} container the error list container
+ * @returns {Element} The `ul` element inside the error container`
+ */
+export function getErrorListFromContainer(container) {
+  return container.querySelector(`:scope > ul`)
 }
 
 /**
