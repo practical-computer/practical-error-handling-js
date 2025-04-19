@@ -59,7 +59,7 @@ suite('Element Utilities', async () => {
     assert.equal(false, ElementUtils.skipValidation(el))
   })
 
-  test(`updateValidationStateForElement`, async() => {
+  test(`reflectConstraintValidationForElement`, async() => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
@@ -80,7 +80,7 @@ suite('Element Utilities', async () => {
 
     assert.equal(false, input.validity.valid)
 
-    ElementUtils.updateValidationStateForElement(input)
+    ElementUtils.reflectConstraintValidationForElement(input)
 
     assert.equal(true, input.hasAttribute(`data-is-invalid`))
     assert.equal("true", input.getAttribute(`aria-invalid`))
@@ -96,7 +96,7 @@ suite('Element Utilities', async () => {
 
     assert.equal(true, input.validity.valid)
 
-    ElementUtils.updateValidationStateForElement(input)
+    ElementUtils.reflectConstraintValidationForElement(input)
 
     assert.equal(false, input.hasAttribute(`data-is-invalid`))
     assert.equal("false", input.getAttribute(`aria-invalid`))

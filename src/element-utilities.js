@@ -37,7 +37,11 @@ export function skipValidation(element) {
   return element.hasAttribute(`data-skip-validation`)
 }
 
-export function updateValidationStateForElement(element) {
+/**
+ * Calls `checkValidity` on the given `element` and updates the DOM appropriately
+ * @params {Element} element
+ */
+export function reflectConstraintValidationForElement(element) {
   if(!element.checkValidity){ return }
   const isInputValid = element.checkValidity();
   if (!element.required && element.value === '' && isInputValid) {
