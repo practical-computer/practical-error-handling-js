@@ -8,6 +8,7 @@
   <script type="module">
     import {ErrorHandlingElement} from "../src/error-handling-element.js"
     import {clearErrorListsInForm} from "../src/rendering.js"
+    import {applyErrorMappingToForm} from "../src/error-mapping.js"
 
     class CustomErrorHandleElement extends ErrorHandlingElement {
       connectedCallback() {
@@ -27,6 +28,41 @@
     if (!window.customElements.get('custom-error-handling')) {
       window.customElements.define('custom-error-handling', CustomErrorHandleElement);
     }
+
+    const errors = [
+      {
+        container_id: "email-field-errors",
+        element_to_invalidate_id: "email-field",
+        message: "This email has been taken",
+        type: "taken"
+      },
+      {
+        container_id: "email-field-errors",
+        element_to_invalidate_id: "email-field",
+        message: "Email is too short (pulled from server messages)",
+        type: "tooShort"
+      },
+      {
+        container_id: "test-form-error-container",
+        element_to_invalidate_id: "test-form",
+        message: "General errors from the server-side",
+        type: "general"
+      },
+      {
+        container_id: "random-missing-field-errors",
+        element_to_invalidate_id: "random-missing-field",
+        message: "Errors that need to go in the fallback section",
+        type: "api_error"
+      },
+    ]
+
+    const applyErrorMappingButton = document.getElementById(`apply-error-mapping`)
+    const form = document.getElementById(`test-form`)
+
+    applyErrorMappingButton.addEventListener(`click`, (event) => {
+      applyErrorMappingToForm(form, errors)
+      document.getElementById(`easy-console`).value += "Applied error map\n"
+    })
   </script>
 
   <style>
@@ -67,7 +103,12 @@
     </form>
   </custom-error-handling>
 
+  <p>
+    <button id="apply-error-mapping">Apply error mapping</button>
+  </p>
+
   <textarea id="easy-console" readonly rows=20></textarea>
+
 
   <template id="pf-error-list-item-template">
     <li><span>‼️</span> <span data-error-message></span></li>
