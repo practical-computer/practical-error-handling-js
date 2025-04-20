@@ -13,7 +13,8 @@
     "./request-processing": "./src/request-processing.js",
     "./plugins/mrujs": "./src/plugins/mrujs.js",
     "./utils": "./src/util.js",
-    "./fieldset/rendering": "./src/fieldset/rendering.js"
+    "./fieldset/rendering": "./src/fieldset/rendering.js",
+    "./fieldset/util": "./src/fieldset/util.js"
   },
   "scripts": {
     "start": "web-dev-server --open demo/ --node-resolve",
