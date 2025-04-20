@@ -264,3 +264,150 @@ suite('Rendering', async () => {
     assert.equal("The preserved message", errorElement.textContent)
   })
 })
+
+suite(`renderConstraintValidationMessageForElement: different input types`, async () => {
+  test(`radio: required`, async () => {
+    const container = await fixture(html`
+      <div>
+        <fieldset>
+          <input type="radio" name="terms" id="terms-field-privacy" value="privacy" aria-describedby="terms-field-errors" required>
+          <input type="radio" name="terms" id="terms-field-service" value="service" aria-describedby="terms-field-errors">
+          <section id="terms-field-errors" data-error-container>
+            <ul>
+              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+            </ul>
+          </section>
+        </fieldset>
+
+        <template id="pf-error-list-item-template">
+          <li><span>‼️</span> <span data-error-message></span></li>
+        </template>
+      </div>
+    `);
+
+    assert.equal(2, document.querySelectorAll(`#terms-field-errors li`).length)
+
+    const privacy = document.getElementById(`terms-field-privacy`)
+    const service = document.getElementById(`terms-field-service`)
+
+    assert.equal(false, privacy.validity.valid)
+    assert.equal(false, service.validity.valid)
+
+    Rendering.renderConstraintValidationMessageForElement(privacy)
+    Rendering.renderConstraintValidationMessageForElement(service)
+
+    assert.equal(1, document.querySelectorAll(`#terms-field-errors li`).length)
+
+    const errorElement = document.querySelector(`#terms-field-errors li[data-visible][data-error-type="valueMissing"]`)
+
+    assert.isNotNull(errorElement)
+    assert.equal("‼️ Please select one of these options.", errorElement.textContent)
+
+    privacy.checked = true
+    service.checked = true
+
+    Rendering.renderConstraintValidationMessageForElement(privacy)
+    Rendering.renderConstraintValidationMessageForElement(service)
+    assert.equal(0, document.querySelectorAll(`#terms-field-errors li`).length)
+  })
+
+  test(`checkbox: multiple checkboxes, all required, all pointing to same error container`, async () => {
+    const container = await fixture(html`
+      <div>
+        <fieldset>
+          <input type="checkbox" name="terms" id="terms-field-privacy" value="privacy" aria-describedby="terms-field-errors" required>
+          <input type="checkbox" name="terms" id="terms-field-service" value="service" aria-describedby="terms-field-errors" required>
+          <section id="terms-field-errors" data-error-container>
+            <ul>
+              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+            </ul>
+          </section>
+        </fieldset>
+
+        <template id="pf-error-list-item-template">
+          <li><span>‼️</span> <span data-error-message></span></li>
+        </template>
+      </div>
+    `);
+
+    assert.equal(2, document.querySelectorAll(`#terms-field-errors li`).length)
+
+    const privacy = document.getElementById(`terms-field-privacy`)
+    const service = document.getElementById(`terms-field-service`)
+
+    assert.equal(false, privacy.validity.valid)
+    assert.equal(false, service.validity.valid)
+
+    Rendering.renderConstraintValidationMessageForElement(privacy)
+    Rendering.renderConstraintValidationMessageForElement(service)
+
+    assert.equal(1, document.querySelectorAll(`#terms-field-errors li`).length)
+
+    const errorElement = document.querySelector(`#terms-field-errors li[data-visible][data-error-type="valueMissing"]`)
+
+    assert.isNotNull(errorElement)
+    assert.equal("‼️ Please check this box if you want to proceed.", errorElement.textContent)
+
+    privacy.checked = true
+    service.checked = true
+
+    Rendering.renderConstraintValidationMessageForElement(privacy)
+    Rendering.renderConstraintValidationMessageForElement(service)
+    assert.equal(0, document.querySelectorAll(`#terms-field-errors li`).length)
+  })
+
+  test(`checkbox: multiple checkboxes, all required, pointing to different error container`, async () => {
+    const container = await fixture(html`
+      <div>
+        <fieldset>
+          <input type="checkbox" name="terms" id="terms-field-privacy" value="privacy" aria-describedby="terms-privacy-errors" required>
+          <input type="checkbox" name="terms" id="terms-field-service" value="service" aria-describedby="terms-service-errors" required>
+          <section id="terms-privacy-errors" data-error-container>
+            <ul>
+              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+            </ul>
+          </section>
+
+          <section id="terms-service-errors" data-error-container>
+            <ul>
+              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+            </ul>
+          </section>
+        </fieldset>
+
+        <template id="pf-error-list-item-template">
+          <li><span>‼️</span> <span data-error-message></span></li>
+        </template>
+      </div>
+    `);
+
+    assert.equal(2, document.querySelectorAll(`#terms-privacy-errors li`).length)
+    assert.equal(2, document.querySelectorAll(`#terms-service-errors li`).length)
+
+    const privacy = document.getElementById(`terms-field-privacy`)
+    const service = document.getElementById(`terms-field-service`)
+
+    assert.equal(false, privacy.validity.valid)
+    assert.equal(false, service.validity.valid)
+
+    Rendering.renderConstraintValidationMessageForElement(privacy)
+
+    assert.equal(1, document.querySelectorAll(`#terms-privacy-errors li`).length)
+    assert.equal(2, document.querySelectorAll(`#terms-service-errors li`).length)
+
+    const errorElement = document.querySelector(`#terms-privacy-errors li[data-visible][data-error-type="valueMissing"]`)
+
+    assert.isNotNull(errorElement)
+    assert.equal("‼️ Please check this box if you want to proceed.", errorElement.textContent)
+
+    privacy.checked = true
+
+    Rendering.renderConstraintValidationMessageForElement(privacy)
+    Rendering.renderConstraintValidationMessageForElement(service)
+    assert.equal(0, document.querySelectorAll(`#terms-privacy-errors li`).length)
+  })
+})
