@@ -33,6 +33,18 @@ suite('Element Utilities', async () => {
     assert.equal(true, ElementUtils.skipInputValidation(el))
   })
 
+  test(`skipChangeValidation`, async() => {
+    const el = await fixture(html`
+      <input type="text" data-change-validation>
+    `);
+
+    assert.equal(false, ElementUtils.skipChangeValidation(el))
+
+    el.removeAttribute(`data-change-validation`)
+
+    assert.equal(true, ElementUtils.skipChangeValidation(el))
+  })
+
   test(`skipFocusoutValidation`, async() => {
     const el = await fixture(html`
       <input type="text" data-focusout-validation>

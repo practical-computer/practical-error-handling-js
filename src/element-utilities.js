@@ -20,6 +20,15 @@ export function skipInputValidation(element) {
 }
 
 /**
+ * Checks if the given `element` has the `data-change-validation` attribute
+ * @param {Element} element
+ * @return {boolean} Returns true if the element does not have the `data-change-validation` attribute`
+ */
+export function skipChangeValidation(element) {
+  return !element.hasAttribute(`data-change-validation`)
+}
+
+/**
  * Checks if the given `element` has the `data-focusout-validation` attribute
  * @param {Element} element
  * @return {boolean} Returns true if the element does not have the `data-focusout-validation` attribute`
