@@ -14,6 +14,7 @@
     "./plugins/mrujs": "./src/plugins/mrujs.js",
     "./utils": "./src/util.js",
     "./fieldset/rendering": "./src/fieldset/rendering.js",
+    "./fieldset/fieldset-validation-element": "./src/fieldset/fieldset-validation-element.js",
     "./fieldset/util": "./src/fieldset/util.js"
   },
   "scripts": {

@@ -9,4 +9,5 @@ import './request-processing.test.js';
 import './event-handlers.test.js';
 import './plugins/mrujs.test.js';
 import './fieldset/rendering.test.js';
+import './fieldset/fieldset-validation-element.test.js';
 import './fieldset/util.test.js';
