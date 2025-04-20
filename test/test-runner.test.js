@@ -8,3 +8,4 @@ import './error-mapping.test.js';
 import './request-processing.test.js';
 import './event-handlers.test.js';
 import './plugins/mrujs.test.js';
+import './fieldset/rendering.test.js';
