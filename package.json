@@ -15,6 +15,7 @@
     "./utils": "./src/util.js",
     "./fieldset/rendering": "./src/fieldset/rendering.js",
     "./fieldset/fieldset-validation-element": "./src/fieldset/fieldset-validation-element.js",
+    "./fieldset/minimum-field-values-fieldset-validation-element": "./src/fieldset/minimum-field-values-fieldset-validation-element.js",
     "./fieldset/util": "./src/fieldset/util.js"
   },
   "scripts": {

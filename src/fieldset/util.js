@@ -5,19 +5,6 @@ import {
 } from "../element-utilities.js"
 
 /**
- * Checks that there is at least N values in the `FormData` for the given
- * `fieldName` in the `fieldset`'s form.
- * @param {FieldsetElement} fieldset
- * @param {string} fieldName
- * @param {integer} minimum
- * @return {boolean} if there is at least 1 record for `fieldName` in the fieldset form's `FormData`
- */
-export function minimumCountOfFieldNameSelected(fieldset, fieldName, minimum) {
-  const formData = new FormData(fieldset.form)
-  return formData.getAll(fieldName).length >= minimum
-}
-
-/**
  * Helper method to check if the the `ChangeEvent` is inside of
  * its target.
  *

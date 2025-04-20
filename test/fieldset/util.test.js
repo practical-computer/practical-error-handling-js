@@ -2,33 +2,6 @@ import { html, fixture, assert } from '@open-wc/testing';
 
 import * as EventUtils from '@practical-computer/error-handling/fieldset/util';
 
-suite('Event Utils', async () => {
-  test(`minimumCountOfFieldNameSelected`, async() =>{
-    const container = await fixture(html`
-      <div>
-        <form>
-          <fieldset>
-            <input type="checkbox" id="accepted-1" name="accepted" value="1">
-            <input type="checkbox" id="accepted-2" name="accepted" value="2">
-            <input type="checkbox" id="accepted-3" name="accepted" value="3">
-          </fieldset>
-        </form>
-      </div>
-    `)
-
-    const fieldset = container.querySelector(`fieldset`)
-    const fieldName = `accepted`
-
-    assert.equal(true, EventUtils.minimumCountOfFieldNameSelected(fieldset, fieldName, 0))
-    assert.equal(false, EventUtils.minimumCountOfFieldNameSelected(fieldset, fieldName, 1))
-
-    fieldset.form.elements[`accepted-1`].checked = true
-
-    assert.equal(true, EventUtils.minimumCountOfFieldNameSelected(fieldset, fieldName, 1))
-    assert.equal(false, EventUtils.minimumCountOfFieldNameSelected(fieldset, fieldName, 2))
-  })
-})
-
 suite('Event Utils: isChangeEventForTarget', async () => {
   test(`event for target`, async() => {
     const container = await fixture(html`
