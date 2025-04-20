@@ -6,6 +6,7 @@ module.exports = {
       "include": [
           "src",
           "src/plugins",
+          "src/fieldset",
           "README.md"
       ],
     }

@@ -9,10 +9,11 @@ import {
 } from './element-utilities.js'
 
 /**
+ * @class
+ * @classdesc
  * A Custom Element class that can be subclassed, allowing you to customize
  * how error handling works in your client-side code.
  *
- * @class
  *
  * @example
  *
@@ -42,14 +43,14 @@ export class ErrorHandlingElement extends HTMLElement {
   /**
    * Prepares the custom element to be connected to the page.
    *
-   * Attaches the following event handlers to the `form`:
+   * Attaches the following event handlers to the {@link ErrorHandlingElement#form}:
    * - {@link liveInputValidationEventHandler}
    * - {@link focusoutValidationEventHandler}
    * - {@link validateFormSubmitEventHandler}
    *
    * Calls {@link reflectConstraintValidationForInitialLoad}
    *
-   * Sets the `novalidate` attribute on the `form`
+   * Sets the `novalidate` attribute on the {@link ErrorHandlingElement#form}
    */
   connectedCallback() {
     if(!this.isConnected){ return }

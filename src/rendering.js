@@ -12,8 +12,8 @@ import {
 /**
  * Renders the error list for the given `element` based on the Constraint Validation API state.
  *
- * If the `element` is valid, calls {@link clearErrorList }.
- * Otherwise calls {@link renderErrorMessageListItem} for the {@link generateValidationMessage} and replaces the
+ * calls {@link clearErrorList }.
+ * calls {@link renderErrorMessageListItem} for the {@link generateValidationMessage} and replaces the
  * error list to include that message (marked as `data-visible`) and any `preserved` errors
  *
  * @param {Element} element
