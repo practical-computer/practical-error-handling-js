@@ -261,7 +261,8 @@ When returning error mappings, they need to have the following format:
   {
     "container_id": "dom-id-without-#", // the ID of the error container you want to append this error message to
     "element_to_invalidate_id": "dom-id-without-#", // the ID of the input that should be marked as invalid
-    "message": "The error message to render",
+    "message": "The error message to render", // The plaintext message used for the error
+    "html_content": "<strong>Rich</strong> Markup", // an OPTIONAL HTML string that will be parsed using `DOMParser` and used as the message. If present, `message` is ignored
     "type": "error-type-key", //The identifier for what type of error this is
   },
   // ...
