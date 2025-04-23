@@ -12,7 +12,7 @@ suite('Event Handlers', async () => {
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
-    assert.equal(false, input.hasAttribute(`data-is-invalid`))
+    assert.equal(false, input.hasAttribute(`data-invalid`))
     assert.equal(false, input.hasAttribute(`aria-invalid`))
   })
 
@@ -25,7 +25,7 @@ suite('Event Handlers', async () => {
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
-    assert.equal(true, input.hasAttribute(`data-is-invalid`))
+    assert.equal(true, input.hasAttribute(`data-invalid`))
     assert.equal("true", input.getAttribute(`aria-invalid`))
   })
 
@@ -38,7 +38,7 @@ suite('Event Handlers', async () => {
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
-    assert.equal(false, input.hasAttribute(`data-is-invalid`))
+    assert.equal(false, input.hasAttribute(`data-invalid`))
     assert.equal(false, input.hasAttribute(`aria-invalid`))
   })
 
@@ -51,7 +51,7 @@ suite('Event Handlers', async () => {
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
-    assert.equal(false, input.hasAttribute(`data-is-invalid`))
+    assert.equal(false, input.hasAttribute(`data-invalid`))
     assert.equal(false, input.hasAttribute(`aria-invalid`))
   })
 
@@ -64,7 +64,7 @@ suite('Event Handlers', async () => {
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
-    assert.equal(true, input.hasAttribute(`data-is-invalid`))
+    assert.equal(true, input.hasAttribute(`data-invalid`))
     assert.equal("true", input.getAttribute(`aria-invalid`))
   })
 
@@ -77,7 +77,7 @@ suite('Event Handlers', async () => {
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
-    assert.equal(false, input.hasAttribute(`data-is-invalid`))
+    assert.equal(false, input.hasAttribute(`data-invalid`))
     assert.equal(false, input.hasAttribute(`aria-invalid`))
   })
 
