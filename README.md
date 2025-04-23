@@ -147,7 +147,7 @@ The following data attributes are used by this package:
     - `data-focusout-validation`: This input should use `focusout` validation
     - `data-skip-validation`: This input should skip any validations
   - `data-invalid`: If present, the input is invalid`
-  - `data-has-initial-load-errors`: If present, this input has initial load errors, which should not be cleared out when reflecting the constraint validation for the initial load.
+  - `data-initial-load-errors`: If present, this input has initial load errors, which should not be cleared out when reflecting the constraint validation for the initial load.
 - `data-error-container`: Marks an element as an error container
 - Error list items
   - `data-visible`: Marks that the error list item should be visible
