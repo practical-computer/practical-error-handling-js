@@ -1,6 +1,6 @@
 {
   "name": "@practical-computer/error-handling",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A collection of JS utility functions and custom elements for progressively enhanced error handling for the client-side",
   "exports": {
     "./element-utilities": "./src/element-utilities.js",
