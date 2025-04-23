@@ -1,7 +1,7 @@
-[data-error-container]:not(:has([data-visible])) {
+[data-error-container]:not(:has([aria-invalid="true"])) {
   display: none;
 }
 
-[data-error-container] > ul > li:not([data-visible]) {
+[data-error-container] > ul > li:not([aria-invalid="true"]) {
   display: none;
 }
