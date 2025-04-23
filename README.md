@@ -17,14 +17,16 @@ class CustomErrorHandleElement extends ErrorHandlingElement {
   connectedCallback() {
     super.connectedCallback()
 
-    this.form.addEventListener(`submit`, (event) => {
-      if(!event.defaultPrevented){
-        event.preventDefault()
-        clearErrorListsInForm(this.form)
-        console.debug(event)
-        document.getElementById(`easy-console`).value += "Submit successful\n"
-      }
-    })
+    this.form.addEventListener(`submit`, this.handleFormSubmit)
+  }
+
+  handleFormSubmit(event){
+    if(!event.defaultPrevented){
+      event.preventDefault()
+      clearErrorListsInForm(this.form)
+      console.debug(event)
+      document.getElementById(`easy-console`).value += "Submit successful\n"
+    }
   }
 }
 
