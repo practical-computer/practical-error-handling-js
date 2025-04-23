@@ -6,7 +6,7 @@ import { applyErrorMappingToForm } from './error-mapping.js'
  * @param {FormElement} form - The `form` event that triggered the event
  * @param {Response} response - The `Response` from the fetch request
  */
-export async function applyErrorMappingToFormFromUnprocessableEntityResponseResponse(form, response) {
+export async function applyErrorMappingFromResponse(form, response) {
   if(response.status != 422){ return }
   const errors = await response.json()
   applyErrorMappingToForm(form, errors)

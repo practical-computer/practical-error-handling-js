@@ -191,13 +191,13 @@ We use the `aria-describedby` so that your markup is **accessible by default**. 
 Since each application has different needs, the best way to utilize the custom elements that wrap around a form to provide event handlers is to subclass them to make your own versions:
 
 ```js
-import { applyErrorMappingToFormFromUnprocessableEntityResponseResponse } from '@practical-computer/error-handling/request-processing'
+import { applyErrorMappingFromResponse } from '@practical-computer/error-handling/request-processing'
 
 class AppErrorHandlingElement extends ErrorHandlingElement {
   connectedCallback() {
     super.connectedCallback()
 
-    this.addEventListener(`custom-fetch-library:request-error`, applyErrorMappingToFormFromUnprocessableEntityResponseResponse)
+    this.addEventListener(`custom-fetch-library:request-error`, applyErrorMappingFromResponse)
 
     this.form.addEventListener(`submit`, (event) => {
       if(!event.defaultPrevented){
@@ -234,12 +234,12 @@ The provided request processing functions expect a `422` response to indicate th
 ### Using the basic request processing function
 
 ```js
-import { applyErrorMappingToFormFromUnprocessableEntityResponseResponse } from '@practical-computer/error-handling/request-processing'
+import { applyErrorMappingFromResponse } from '@practical-computer/error-handling/request-processing'
 
 const response = fetch(...)
 const form = // ...
 
-applyErrorMappingToFormFromUnprocessableEntityResponseResponse(form, response)
+applyErrorMappingFromResponse(form, response)
 ````
 
 #### Loading the Mrujs plugin
