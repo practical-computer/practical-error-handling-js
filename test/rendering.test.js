@@ -87,6 +87,30 @@ suite('Rendering', async () => {
     assert.equal(true, itemElement.hasAttribute(`data-pf-error-preserve`))
   })
 
+  test(`errorMessageListItemWithHTML`, async() => {
+    const container = await fixture(html`
+      <div>
+        <p>Some content</p>
+
+        <template id="pf-error-list-item-template">
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
+        </template>
+      </div>
+    `)
+
+    const htmlString = `<strong>Richly <a href="https://example.com">rendered</a> errors!</strong>`
+
+    const itemElement = Rendering.errorMessageListItemWithHTML(htmlString, "a-custom-type")
+
+    assert.equal("a-custom-type", itemElement.getAttribute(`data-pf-error-type`))
+    assert.equal(htmlString, itemElement.querySelector(`[data-pf-error-message]`).innerHTML)
+    assert.equal("‼️ Richly rendered errors!", itemElement.textContent)
+    assert.equal(false, itemElement.hasAttribute(`data-pf-error-preserve`))
+
+    itemElement.setAttribute(`data-pf-error-preserve`, true)
+    assert.equal(true, itemElement.hasAttribute(`data-pf-error-preserve`))
+  })
+
   test(`renderConstraintValidationMessageForElement: the input is valid`, async () => {
     const container = await fixture(html`
       <div>

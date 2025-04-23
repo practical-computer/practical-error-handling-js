@@ -71,6 +71,24 @@ export function errorMessageListItem(message, type) {
 }
 
 /**
+ * Clones the {@link errorListItemTemplate}, parsing the given HTML string and inserting it into the element with `[data-pf-error-message]` to the message,
+ * and setting the `data-pf-error-type` to the given type.
+ *
+ * @params {string} htmlString the HTML content to render in the string
+ * @params {string} type the value that will be used for `data-pf-error-type``
+ * @returns {Element} the cloned element
+ */
+export function errorMessageListItemWithHTML(htmlString, type) {
+  const clone = errorListItemTemplate().content.cloneNode(true).querySelector(`*:first-child`)
+
+  const parsedDocument = new DOMParser().parseFromString(htmlString, "text/html")
+
+  clone.setAttribute(`data-pf-error-type`, type)
+  clone.querySelector(`[data-pf-error-message]`).replaceChildren(parsedDocument.body.firstChild)
+  return clone
+}
+
+/**
  * Clears the error messages from the list, while keeping preserved errors.
  * Removes the `data-pf-error-visible` attribute from any preserved attributes
  * @param {Element} element
