@@ -13,6 +13,7 @@ import {
 import {
   clearErrorListsInForm,
   errorMessageListItem,
+  errorMessageListItemWithHTML,
   markErrorTypeAsVisible
 } from './rendering.js'
 
@@ -30,6 +31,7 @@ import {
  * @param {string} errors[].container_id - The ID of the container this error message should be rendered in
  * @param {string} errors[].element_id - The ID of the element to call {@link setValidityStateAttributes} with `false` for
  * @param {string} errors[].message - the error message
+ * @param {string} errors[].html_content - An optional HTML string that can be used to render rich markup in an error message. If present, `message` is ignored
  * @param {string} errors[].type - the value for `data-pf-error-type` that represents the type of error this is
  *
  * @example
@@ -74,7 +76,13 @@ export function applyErrorMappingToForm(form, errors) {
     const preservedError = getPreservedErrorForType(errorList, error.type)
     preservedError?.remove()
 
-    let listItem = errorMessageListItem(error.message, error.type)
+    let listItem
+
+    if(error.html_content){
+      listItem = errorMessageListItemWithHTML(error.html_content, error.type)
+    } else {
+      listItem = errorMessageListItem(error.message, error.type)
+    }
 
     if(shouldBePreserved) {
       markAsPreservedError(listItem)

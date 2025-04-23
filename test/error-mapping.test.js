@@ -106,6 +106,13 @@ suite('Error Mapping', async () => {
         type: `unconfirmed_error`,
         message: "Please confirm"
       },
+      {
+        container_id: `confirm-email-field-errors`,
+        element_to_invalidate_id: `confirm-email-field`,
+        type: `custom_error_with_html_content`,
+        message: "This message body should be ignored",
+        html_content: `<strong>Richly <a href="https://example.com">rendered</a> errors!</strong>`
+      }
     ]
 
     const form = container.querySelector(`form`)
@@ -145,7 +152,7 @@ suite('Error Mapping', async () => {
       document.getElementById(`email-field-errors`).querySelector(`[data-pf-error-visible][data-pf-error-type="ad_hoc_server_error_5"]`).textContent
     )
 
-    assert.equal(2, document.getElementById(`confirm-email-field-errors`).querySelectorAll(`[data-pf-error-type][data-pf-error-visible]`).length)
+    assert.equal(3, document.getElementById(`confirm-email-field-errors`).querySelectorAll(`[data-pf-error-type][data-pf-error-visible]`).length)
     assert.equal(
       "‼️ Ad-hoc server error 6",
       document.getElementById(`confirm-email-field-errors`).querySelector(`[data-pf-error-visible][data-pf-error-type="ad_hoc_server_error_6"]`).textContent
@@ -154,6 +161,13 @@ suite('Error Mapping', async () => {
     assert.equal(
       "‼️ Please confirm",
       document.getElementById(`confirm-email-field-errors`).querySelector(`[data-pf-error-visible][data-pf-error-type="unconfirmed_error"]`).textContent
+    )
+
+    const richError = document.getElementById(`confirm-email-field-errors`).querySelector(`[data-pf-error-visible][data-pf-error-type="custom_error_with_html_content"]`)
+
+    assert.equal(
+      `<span>‼️</span> <span data-pf-error-message=""><strong>Richly <a href="https://example.com">rendered</a> errors!</strong></span>`,
+      richError.innerHTML
     )
   })
 })

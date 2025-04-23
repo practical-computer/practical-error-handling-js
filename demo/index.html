@@ -55,6 +55,13 @@
         type: "general"
       },
       {
+        container_id: "test-form-error-container",
+        element_to_invalidate_id: "test-form",
+        message: "This message content will be ignored",
+        html_content: `<strong>Richly <a href="https://example.com">rendered</a> errors!</strong>`,
+        type: "rich_error"
+      },
+      {
         container_id: "random-missing-field-errors",
         element_to_invalidate_id: "random-missing-field",
         message: "Error that will end up in the fallback section",
