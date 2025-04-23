@@ -10,16 +10,16 @@ suite('Fieldset Rendering', async () => {
           <input type="checkbox" name="privacy" required>
           <input type="checkbox" name="service" required>
 
-          <section id="terms-fieldset-errors" data-error-container>
+          <section id="terms-fieldset-errors" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
             </ul>
           </section>
         </fieldset>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -33,24 +33,24 @@ suite('Fieldset Rendering', async () => {
     assert.equal(0, document.querySelectorAll(`#terms-fieldset-errors li`).length)
   })
 
-  test(`clearErrorListForFieldset: keeps the given preserved message, removing the data-visible attribute`, async () => {
+  test(`clearErrorListForFieldset: keeps the given preserved message, removing the data-pf-error-visible attribute`, async () => {
     const container = await fixture(html`
       <div>
         <fieldset aria-describedby="terms-fieldset-errors">
           <input type="checkbox" name="privacy" required>
           <input type="checkbox" name="service" required>
 
-          <section id="terms-fieldset-errors" data-error-container>
+          <section id="terms-fieldset-errors" data-pf-error-container>
             <ul>
-              <li data-preserve data-error-type="required">The preserved message</li>
-              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              <li data-pf-error-preserve data-pf-error-type="required">The preserved message</li>
+              <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
             </ul>
           </section>
         </fieldset>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -63,10 +63,10 @@ suite('Fieldset Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#terms-fieldset-errors li`).length)
 
-    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-error-type="required"]`)
+    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-pf-error-type="required"]`)
 
-    assert.equal(false, errorElement.hasAttribute(`data-visible`))
-    assert.equal(true, errorElement.hasAttribute(`data-preserve`))
+    assert.equal(false, errorElement.hasAttribute(`data-pf-error-visible`))
+    assert.equal(true, errorElement.hasAttribute(`data-pf-error-preserve`))
     assert.equal("The preserved message", errorElement.textContent)
   })
 
@@ -77,16 +77,16 @@ suite('Fieldset Rendering', async () => {
           <input type="checkbox" name="privacy" required>
           <input type="checkbox" name="service" required>
 
-          <section id="terms-fieldset-errors" data-error-container>
+          <section id="terms-fieldset-errors" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
             </ul>
           </section>
         </fieldset>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -102,7 +102,7 @@ suite('Fieldset Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#terms-fieldset-errors li`).length)
 
-    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-visible][data-error-type="required"]`)
+    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-pf-error-visible][data-pf-error-type="required"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please accept all terms", errorElement.textContent)
@@ -115,13 +115,13 @@ suite('Fieldset Rendering', async () => {
           <input type="checkbox" name="privacy" required>
           <input type="checkbox" name="service" required>
 
-          <section id="terms-fieldset-errors" data-error-container>
+          <section id="terms-fieldset-errors" data-pf-error-container>
             <ul></ul>
           </section>
         </fieldset>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -137,7 +137,7 @@ suite('Fieldset Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#terms-fieldset-errors li`).length)
 
-    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-visible][data-error-type="required"]`)
+    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-pf-error-visible][data-pf-error-type="required"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please accept all terms", errorElement.textContent)
@@ -150,16 +150,16 @@ suite('Fieldset Rendering', async () => {
           <input type="checkbox" name="privacy" required>
           <input type="checkbox" name="service" required>
 
-          <section id="terms-fieldset-errors" data-error-container>
+          <section id="terms-fieldset-errors" data-pf-error-container>
             <ul>
-              <li data-preserve data-error-type="required">The preserved message</li>
-              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              <li data-pf-error-preserve data-pf-error-type="required">The preserved message</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
             </ul>
           </section>
         </fieldset>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -175,7 +175,7 @@ suite('Fieldset Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#terms-fieldset-errors li`).length)
 
-    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-visible][data-error-type="required"]`)
+    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-pf-error-visible][data-pf-error-type="required"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("The preserved message", errorElement.textContent)

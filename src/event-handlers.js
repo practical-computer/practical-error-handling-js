@@ -35,7 +35,7 @@ export function validateFormSubmitEventHandler(event) {
 
 /**
  * Calls {@link reflectConstraintValidationForElement} if the `event.target` has
- * `data-validation="input"` and does not have `data-skip-validation`
+ * `data-pf-validation="input"`
  *
  * @param {Event} event
  */
@@ -48,7 +48,7 @@ export function inputValidationEventHandler(event) {
 
 /**
  * Calls {@link reflectConstraintValidationForElement} if the `event.target` has
- * `data-validation="focusout"` and does not have `data-skip-validation`
+ * `data-pf-validation="focusout"`
  * @param {Event} event
  */
 export function focusoutValidationEventHandler(event) {

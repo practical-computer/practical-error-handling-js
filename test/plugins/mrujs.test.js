@@ -9,20 +9,20 @@ suite('Mrujs Plugin', async () => {
       <div>
         <form id="test-form" aria-describedby='test-form-error-container'>
           <input type="email" id="email-field" aria-describedby="email-field-errors">
-          <section id="email-field-errors" data-error-container>
+          <section id="email-field-errors" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_1">ad-hoc error message 1</li>
+              <li data-pf-error-visible data-pf-error-type="error_1">ad-hoc error message 1</li>
             </ul>
           </section>
 
-          <section id="test-form-error-container" data-error-container>
+          <section id="test-form-error-container" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_2">ad-hoc error message 2</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">ad-hoc error message 2</li>
             </ul>
           </section>
         </form>
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
 
       </div>
@@ -39,7 +39,7 @@ suite('Mrujs Plugin', async () => {
 
     const form = container.querySelector(`form`)
 
-    assert.equal(2, form.querySelectorAll(`[data-error-type]`).length)
+    assert.equal(2, form.querySelectorAll(`[data-pf-error-type]`).length)
 
     const response = new Response(JSON.stringify(errors), {status: 400})
 
@@ -52,7 +52,7 @@ suite('Mrujs Plugin', async () => {
 
     await MrujsPlugins.unprocessableEntityResponseHandler(event)
 
-    assert.equal(2, form.querySelectorAll(`[data-error-type]`).length)
+    assert.equal(2, form.querySelectorAll(`[data-pf-error-type]`).length)
   })
 
   test(`applies the errors from the resonse (JSON) if response status == 422`, async () => {
@@ -60,20 +60,20 @@ suite('Mrujs Plugin', async () => {
       <div>
         <form id="test-form" aria-describedby='test-form-error-container'>
           <input type="email" id="email-field" aria-describedby="email-field-errors">
-          <section id="email-field-errors" data-error-container>
+          <section id="email-field-errors" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_1">ad-hoc error message 1</li>
+              <li data-pf-error-visible data-pf-error-type="error_1">ad-hoc error message 1</li>
             </ul>
           </section>
 
-          <section id="test-form-error-container" data-error-container>
+          <section id="test-form-error-container" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_2">ad-hoc error message 2</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">ad-hoc error message 2</li>
             </ul>
           </section>
         </form>
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
 
       </div>
@@ -90,7 +90,7 @@ suite('Mrujs Plugin', async () => {
 
     const form = container.querySelector(`form`)
 
-    assert.equal(2, form.querySelectorAll(`[data-error-type]`).length)
+    assert.equal(2, form.querySelectorAll(`[data-pf-error-type]`).length)
 
     const response = new Response(JSON.stringify(errors), {status: 422})
 
@@ -103,7 +103,7 @@ suite('Mrujs Plugin', async () => {
 
     await MrujsPlugins.unprocessableEntityResponseHandler(event)
 
-    assert.equal(1, form.querySelectorAll(`[data-error-type]`).length)
-    assert.equal(1, form.querySelectorAll(`[data-error-type][data-error-type="ad_hoc_server_error_1"]`).length)
+    assert.equal(1, form.querySelectorAll(`[data-pf-error-type]`).length)
+    assert.equal(1, form.querySelectorAll(`[data-pf-error-type][data-pf-error-type="ad_hoc_server_error_1"]`).length)
   })
 })

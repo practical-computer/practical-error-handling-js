@@ -30,7 +30,7 @@ import {
  * @param {string} errors[].container_id - The ID of the container this error message should be rendered in
  * @param {string} errors[].element_id - The ID of the element to call {@link setValidityStateAttributes} with `false` for
  * @param {string} errors[].message - the error message
- * @param {string} errors[].type - the value for `data-error-type` that represents the type of error this is
+ * @param {string} errors[].type - the value for `data-pf-error-type` that represents the type of error this is
  *
  * @example
  * // For example, a JSON response from a fetch request

@@ -79,18 +79,18 @@ applyErrorMappingButton.addEventListener(`click`, (event) => {
   <custom-error-handling>
     <form id="test-form" aria-describedby='test-form-error-container'>
       <input type="email" id="email-field" aria-describedby="email-field-errors" minlength="4">
-      <section id="email-field-errors" data-error-container>
+      <section id="email-field-errors" data-pf-error-container>
         <ul>
-          <li data-visible data-error-type="error_1">ad-hoc error message 1 <small>(rendered on initial load)</small></li>
-          <li data-preserve data-error-type="tooShort">Custom Preserved Error: Must be at least 4 characters<small>(rendered on initial load)</small></li>
+          <li data-pf-error-visible data-pf-error-type="error_1">ad-hoc error message 1 <small>(rendered on initial load)</small></li>
+          <li data-pf-error-preserve data-pf-error-type="tooShort">Custom Preserved Error: Must be at least 4 characters<small>(rendered on initial load)</small></li>
         </ul>
       </section>
 
-      <section id="test-form-error-container" data-error-container>
+      <section id="test-form-error-container" data-pf-error-container>
         <h2>Form Errors</h2>
         <ul>
-          <li data-visible data-error-type="error_2">ad-hoc error message 2 <small>(rendered on initial load)</small></li>
-          <li data-visible data-preserve data-error-type="error_3">Preserved Error <small>(rendered on initial load)</small></li>
+          <li data-pf-error-visible data-pf-error-type="error_2">ad-hoc error message 2 <small>(rendered on initial load)</small></li>
+          <li data-pf-error-visible data-pf-error-preserve data-pf-error-type="error_3">Preserved Error <small>(rendered on initial load)</small></li>
         </ul>
       </section>
 
@@ -105,7 +105,7 @@ applyErrorMappingButton.addEventListener(`click`, (event) => {
   <textarea id="easy-console" readonly rows=20></textarea>
 
   <template id="pf-error-list-item-template">
-    <li><span>‼️</span> <span data-error-message></span></li>
+    <li><span>‼️</span> <span data-pf-error-message></span></li>
   </template>
 </body>
 ```
@@ -143,18 +143,18 @@ The following terms are used for this package:
 The following data attributes are used by this package:
 
 - Inputs
-  - Validation Event Handling flags.  This package does not provide the validations, but does provide helper functions for checks if an event handler should proceed by checking the value of `data-validation`:
-    - `data-validation="input"`: This input should use `input` validation
-    - `data-validation="change"`: This input should use `change` validation
-    - `data-validation="focusout"`: This input should use `focusout` validation
-    - `data-validation="skip"`: This input should skip any validations
-  - `data-initial-load-errors`: If present, this input has initial load errors, which should not be cleared out when reflecting the constraint validation for the initial load.
-- `data-error-container`: Marks an element as an error container
+  - Validation Event Handling flags.  This package does not provide the validations, but does provide helper functions for checks if an event handler should proceed by checking the value of `data-pf-validation`:
+    - `data-pf-validation="input"`: This input should use `input` validation
+    - `data-pf-validation="change"`: This input should use `change` validation
+    - `data-pf-validation="focusout"`: This input should use `focusout` validation
+    - `data-pf-validation="skip"`: This input should skip any validations
+  - `data-pf-initial-load-errors`: If present, this input has initial load errors, which should not be cleared out when reflecting the constraint validation for the initial load.
+- `data-pf-error-container`: Marks an element as an error container
 - Error list items
-  - `data-visible`: Marks that the error list item should be visible
-  - `data-error-type`: The error type for this list item (eg: `tooShort`, or `some_custom_error_type`)
-  - `data-preserve`: This error list item should not be removed when clearing the error list; useful for rendering custom error messages for default error types. *Just because an error is preserved does not mean it is visible*
-- `data-error-message` Used in the error list item `template` element to indicate where an error message should be rendered in the markup as the `textContent`
+  - `data-pf-error-visible`: Marks that the error list item should be visible
+  - `data-pf-error-type`: The error type for this list item (eg: `tooShort`, or `some_custom_error_type`)
+  - `data-pf-error-preserve`: This error list item should not be removed when clearing the error list; useful for rendering custom error messages for default error types. *Just because an error is preserved does not mean it is visible*
+- `data-pf-error-message` Used in the error list item `template` element to indicate where an error message should be rendered in the markup as the `textContent`
 
 ### Marking an input as invalid
 
@@ -164,20 +164,20 @@ We use `aria-invalid="true"` to indicate that an input is invalid. This makes yo
 
 To link an `input` or `form` to an error container, you:
 
-- Add the error container's markup to the page, with a unique `id` and the `data-error-container` attribute
+- Add the error container's markup to the page, with a unique `id` and the `data-pf-error-container` attribute
 - Include that `id` in the `input`/`form`'s `aria-describedby`
 
-We use the `aria-describedby` so that your markup is **accessible by default**. Since there can be [multiple elements that describe an element](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby#id_reference_list), You specify which one is the error container using `data-error-container`.
+We use the `aria-describedby` so that your markup is **accessible by default**. Since there can be [multiple elements that describe an element](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-describedby#id_reference_list), You specify which one is the error container using `data-pf-error-container`.
 
 #### Example
 ```html
 <form id="test-form" aria-describedby='test-form-error-container'>
   <input type="email" id="email-field" aria-describedby="email-field-errors" minlength="4">
-  <section id="email-field-errors" data-error-container>
+  <section id="email-field-errors" data-pf-error-container>
     <ul></ul>
   </section>
 
-  <section id="test-form-error-container" data-error-container>
+  <section id="test-form-error-container" data-pf-error-container>
     <h2>Form Errors</h2>
     <ul></ul>
   </section>
@@ -215,14 +215,14 @@ if (!window.customElements.get('app-error-handling')) {
 
 ### Handling the initial page load
 
-- Render any error list items that should be visible on the initial page load with the `data-visible` attribute
+- Render any error list items that should be visible on the initial page load with the `data-pf-error-visible` attribute
 - Mark the invalid inputs with:
   - `aria-invalid=true` 
-  - `data-initial-load-errors`
+  - `data-pf-initial-load-errors`
 
 To reflect any other errors that might be present from the Constraint Validation API, you can use the `reflectConstraintValidationForInitialLoad` method in `@practical-computer/error-handling/element-utilities`.
 
-This method will skip any `form.elements` with blank values, or the `data-initial-load-errors` attribute.
+This method will skip any `form.elements` with blank values, or the `data-pf-initial-load-errors` attribute.
 
 
 ### Server-side errors
@@ -294,7 +294,7 @@ One of the best ways to understand this package is to glance at the source. It's
   - Any preserved errors for a list (or for a specific `type` of error)
 - Rendering helper functions, including:
   - Reflecting the current [`ValidityState`](https://developer.mozilla.org/en-US/docs/Web/API/ValidityState) of an element
-  - Applyig the `data-` and ARIA attributes to mark an element as invalid, without going through the Constraint Validation API
+  - Applyig the `data-pf` and ARIA attributes to mark an element as invalid, without going through the Constraint Validation API
   - Marking an error `type` as visible for an element
   - Creating a new error list item element
   - Clearing the error list for an element, or for an entire form.
@@ -323,7 +323,7 @@ Validation is almost always application/framework dependent; and best served by 
 
 #### Markup for rendering errors
 
-You provide the markup, using ARIA attributes, a small set of `data-` attributes, and a `template` element. Fitting error messages into a design is *tough* and extremely context specific. We trust your judgement, and render the text and set the `data-visible` attributes in the places you put us to.
+You provide the markup, using ARIA attributes, a small set of `data-` attributes (prefixed with `data-pf`), and a `template` element. Fitting error messages into a design is *tough* and extremely context specific. We trust your judgement, and render the text and set the `data-pf-error-visible` attributes in the places you put us to.
 
 #### Automatic integrations/hooks/event handlers
 

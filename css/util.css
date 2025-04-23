@@ -1,7 +1,7 @@
-[data-error-container]:not(:has([data-visible])) {
+[data-pf-error-container]:not(:has([data-pf-error-visible])) {
   display: none;
 }
 
-[data-error-container] > ul > li:not([data-visible]) {
+[data-pf-error-container] > ul > li:not([data-pf-error-visible]) {
   display: none;
 }
