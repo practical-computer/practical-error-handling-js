@@ -121,7 +121,7 @@ Check [`package.json`](https://github.com/practical-computer/practical-error-han
 Include the utility CSS for hiding/showing messages, or [copy/paste into your codebase](https://github.com/practical-computer/practical-error-handling-js/blob/main/css/util.css):
 
 ```scss
-@use '@practical-computer/error-handling/css/util'
+@import '@practical-computer/error-handling/css/util.css'
 ```
 
 ## Quick Guide
