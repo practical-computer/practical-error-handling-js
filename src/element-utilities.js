@@ -63,17 +63,17 @@ export function reflectConstraintValidationForElement(element) {
 }
 
 /**
- * Adds/removes the `data-is-invalid` attribute based on the given `isValid`, and sets
+ * Adds/removes the `data-invalid` attribute based on the given `isValid`, and sets
  * `aria-invalid` based on the given `isValid`
  * @params {Element} element the element to apply the validity state attributes to
  * @params {boolean} isValid whether or not the given element is valid
  */
 export function setValidityStateAttributes(element, isValid) {
   if (isValid) {
-    // Clear `data-is-invalid` attribute flag`
-    element.removeAttribute(`data-is-invalid`)
+    // Clear `data-invalid` attribute flag`
+    element.removeAttribute(`data-invalid`)
   } else {
-    element.toggleAttribute(`data-is-invalid`, !isValid)
+    element.toggleAttribute(`data-invalid`, !isValid)
   }
 
   // Update the `aria-invalid` state based on the given validity boolean.
