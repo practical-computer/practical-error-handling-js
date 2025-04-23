@@ -148,7 +148,6 @@ The following data attributes are used by this package:
     - `data-change-validation`: This input should use change validation (eg: `change`)
     - `data-focusout-validation`: This input should use `focusout` validation
     - `data-skip-validation`: This input should skip any validations
-  - `data-invalid`: If present, the input is invalid`
   - `data-initial-load-errors`: If present, this input has initial load errors, which should not be cleared out when reflecting the constraint validation for the initial load.
 - `data-error-container`: Marks an element as an error container
 - Error list items
@@ -156,6 +155,10 @@ The following data attributes are used by this package:
   - `data-error-type`: The error type for this list item (eg: `tooShort`, or `some_custom_error_type`)
   - `data-preserve`: This error list item should not be removed when clearing the error list; useful for rendering custom error messages for default error types. *Just because an error is preserved does not mean it is visible*
 - `data-error-message` Used in the error list item `template` element to indicate where an error message should be rendered in the markup as the `textContent`
+
+### Marking an input as invalid
+
+We use `aria-invalid="true"` to indicate that an input is invalid. This makes your markup accessible by default while not requiring you to tack on a bunch of extra attributes.
 
 ### Linking an `input` or `form` to an error container
 
@@ -214,7 +217,6 @@ if (!window.customElements.get('app-error-handling')) {
 
 - Render any error list items that should be visible on the initial page load with the `data-visible` attribute
 - Mark the invalid inputs with:
-  - `data-invalid`
   - `aria-invalid=true` 
   - `data-initial-load-errors`
 

@@ -78,26 +78,20 @@ suite('Element Utilities', async () => {
       <a-custom-element>Such as a rich text editor</a-custom-element>
     `);
 
-    assert.equal(false, input.hasAttribute(`data-invalid`))
     assert.equal(false, input.hasAttribute(`aria-invalid`))
 
     ElementUtils.setValidityStateAttributes(input, false)
-    assert.equal(true, input.hasAttribute(`data-invalid`))
     assert.equal("true", input.getAttribute(`aria-invalid`))
 
     ElementUtils.setValidityStateAttributes(input, true)
-    assert.equal(false, input.hasAttribute(`data-invalid`))
     assert.equal("false", input.getAttribute(`aria-invalid`))
 
-    assert.equal(false, customElement.hasAttribute(`data-invalid`))
     assert.equal(false, customElement.hasAttribute(`aria-invalid`))
 
     ElementUtils.setValidityStateAttributes(customElement, false)
-    assert.equal(true, customElement.hasAttribute(`data-invalid`))
     assert.equal("true", customElement.getAttribute(`aria-invalid`))
 
     ElementUtils.setValidityStateAttributes(customElement, true)
-    assert.equal(false, customElement.hasAttribute(`data-invalid`))
     assert.equal("false", customElement.getAttribute(`aria-invalid`))
   })
 
@@ -124,7 +118,6 @@ suite('Element Utilities', async () => {
 
     ElementUtils.reflectConstraintValidationForElement(input)
 
-    assert.equal(true, input.hasAttribute(`data-invalid`))
     assert.equal("true", input.getAttribute(`aria-invalid`))
 
     assert.equal(1, document.querySelectorAll(`#name-field-errors li`).length)
@@ -140,7 +133,6 @@ suite('Element Utilities', async () => {
 
     ElementUtils.reflectConstraintValidationForElement(input)
 
-    assert.equal(false, input.hasAttribute(`data-invalid`))
     assert.equal("false", input.getAttribute(`aria-invalid`))
 
     assert.equal(0, document.querySelectorAll(`#name-field-errors li`).length)
@@ -167,7 +159,6 @@ suite('Element Utilities', async () => {
 
     ElementUtils.reflectConstraintValidationForElement(input)
 
-    assert.equal(false, input.hasAttribute(`data-invalid`))
     assert.equal("false", input.getAttribute(`aria-invalid`))
 
     assert.equal(0, document.querySelectorAll(`#name-field-errors li`).length)
