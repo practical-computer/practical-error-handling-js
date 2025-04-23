@@ -143,11 +143,11 @@ The following terms are used for this package:
 The following data attributes are used by this package:
 
 - Inputs
-  - Validation Event Handling flags.  This package does not provide the validations, but does provide helper functions for checks if an event handler should proceed.
-    - `data-live-validation`: This input should use live validation (eg: `input`).
-    - `data-change-validation`: This input should use change validation (eg: `change`)
-    - `data-focusout-validation`: This input should use `focusout` validation
-    - `data-skip-validation`: This input should skip any validations
+  - Validation Event Handling flags.  This package does not provide the validations, but does provide helper functions for checks if an event handler should proceed by checking the value of `data-validation`:
+    - `data-validation="input"`: This input should use `input` validation
+    - `data-validation="change"`: This input should use `change` validation
+    - `data-validation="focusout"`: This input should use `focusout` validation
+    - `data-validation="skip"`: This input should skip any validations
   - `data-initial-load-errors`: If present, this input has initial load errors, which should not be cleared out when reflecting the constraint validation for the initial load.
 - `data-error-container`: Marks an element as an error container
 - Error list items

@@ -152,7 +152,7 @@ suite('Event Utils: skipFieldsetChangeEvent', async () => {
   test(`skips validation`, async() => {
     const container = await fixture(html`
       <div>
-        <fieldset data-change-validation data-skip-validation>
+        <fieldset data-validation="skip">
           <input type="checkbox">
         </fieldset>
       </div>
@@ -175,7 +175,7 @@ suite('Event Utils: skipFieldsetChangeEvent', async () => {
   test(`follows through on change validation`, async() => {
     const container = await fixture(html`
       <div>
-        <fieldset data-change-validation>
+        <fieldset data-validation="change">
           <input type="checkbox">
         </fieldset>
       </div>
@@ -251,7 +251,7 @@ suite('Event Utils: skipFieldsetFocusoutEvent', async () => {
   test(`skips validation`, async() => {
     const container = await fixture(html`
       <div>
-        <fieldset data-focusout-validation data-skip-validation>
+        <fieldset data-validation="skip">
           <input type="checkbox">
         </fieldset>
 
@@ -277,7 +277,7 @@ suite('Event Utils: skipFieldsetFocusoutEvent', async () => {
   test(`follows through on validation`, async() => {
     const container = await fixture(html`
       <div>
-        <fieldset data-focusout-validation>
+        <fieldset data-validation="focusout">
           <input type="checkbox">
         </fieldset>
 

@@ -11,39 +11,39 @@ export function generateValidationMessage(element) {
 }
 
 /**
- * Checks if the given `element` has the `data-live-validation` attribute
+ * Checks if the given `element` has `data-validation == "input"`
  * @param {Element} element
- * @return {boolean} Returns true if the element does not have the `data-live-validation` attribute`
+ * @return {boolean} Returns true if the element does not have `data-validation == "input"`
  */
 export function skipInputValidation(element) {
-  return !element.hasAttribute(`data-live-validation`)
+  return !(element.getAttribute(`data-validation`) === "input")
 }
 
 /**
- * Checks if the given `element` has the `data-change-validation` attribute
+ * Checks if the given `element` has `data-validation == "change"`
  * @param {Element} element
- * @return {boolean} Returns true if the element does not have the `data-change-validation` attribute`
+ * @return {boolean} Returns true if the element does not have `data-validation == "change"`
  */
 export function skipChangeValidation(element) {
-  return !element.hasAttribute(`data-change-validation`)
+  return !(element.getAttribute(`data-validation`) === "change")
 }
 
 /**
- * Checks if the given `element` has the `data-focusout-validation` attribute
+ * Checks if the given `element` has `data-validation == "focusout"`
  * @param {Element} element
- * @return {boolean} Returns true if the element does not have the `data-focusout-validation` attribute`
+ * @return {boolean} Returns true if the element does not have `data-validation == "focusout"`
  */
 export function skipFocusoutValidation(element) {
-  return !element.hasAttribute(`data-focusout-validation`)
+  return !(element.getAttribute(`data-validation`) === "focusout")
 }
 
 /**
- * Checks if the given `element` has the `data-skip-validation` attribute
+ * Checks if the given `element` given `element` has `data-validation == "skip"`
  * @param {Element} element
- * @return {boolean} Returns true if the element has the `data-skip-validation` attribute`
+ * @return {boolean} Returns true if the element has `data-validation == "change"`
  */
 export function skipValidation(element) {
-  return element.hasAttribute(`data-skip-validation`)
+  return (element.getAttribute(`data-validation`) === "skip")
 }
 
 /**
