@@ -14,7 +14,7 @@ import {
  *
  * calls {@link clearErrorList }.
  * calls {@link renderErrorMessageListItem} for the {@link generateValidationMessage} and replaces the
- * error list to include that message (marked as `data-visible`) and any `preserved` errors
+ * error list to include that message (marked as `data-pf-error-visible`) and any `preserved` errors
  *
  * @param {Element} element
  */
@@ -45,41 +45,41 @@ export function renderConstraintValidationMessageForElement(element) {
 
 /**
  * Checks the given `errorListElement` for an error of the given `type`. If it's present,
- * It marks it with the `data-visible` attribute`
+ * It marks it with the `data-pf-error-visible` attribute`
  * @params {Element} {@link getErrorList}
  * @params {string} type the error type
  */
 export function markErrorTypeAsVisible(errorListElement, type) {
-  getErrorForType(errorListElement, type)?.toggleAttribute(`data-visible`, true)
+  getErrorForType(errorListElement, type)?.toggleAttribute(`data-pf-error-visible`, true)
 }
 
 /**
- * Clones the {@link errorListItemTemplate}, setting the textContent of the element with `[data-error-message]` to the message,
- * and setting the `data-error-type` to the given type.
+ * Clones the {@link errorListItemTemplate}, setting the textContent of the element with `[data-pf-error-message]` to the message,
+ * and setting the `data-pf-error-type` to the given type.
  *
  * @params {string} message the error message
- * @params {string} type the value that will be used for `data-error-type``
+ * @params {string} type the value that will be used for `data-pf-error-type``
  * @returns {Element} the cloned element
  */
 export function errorMessageListItem(message, type) {
   const clone = errorListItemTemplate().content.cloneNode(true).querySelector(`*:first-child`)
 
-  clone.setAttribute(`data-error-type`, type)
-  clone.querySelector(`[data-error-message]`).textContent = message
+  clone.setAttribute(`data-pf-error-type`, type)
+  clone.querySelector(`[data-pf-error-message]`).textContent = message
 
   return clone
 }
 
 /**
  * Clears the error messages from the list, while keeping preserved errors.
- * Removes the `data-visible` attribute from any preserved attributes
+ * Removes the `data-pf-error-visible` attribute from any preserved attributes
  * @param {Element} element
  */
 export function clearErrorList(errorListElement) {
   const preservedErrors = [...getPreservedErrors(errorListElement)]
 
   preservedErrors.forEach((x) => {
-    x.removeAttribute(`data-visible`)
+    x.removeAttribute(`data-pf-error-visible`)
   })
 
   errorListElement.replaceChildren(...preservedErrors)

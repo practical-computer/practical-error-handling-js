@@ -51,24 +51,24 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
               fieldset="terms-fieldset"
               field-name="terms"
               error-container-aria="terms-fieldset-errors-aria"
-              data-validation="change"
+              data-pf-validation="change"
             >
               <input type="checkbox" name="terms" id="privacy" value="privacy" required>
               <input type="checkbox" name="terms" id="service" value="service" required>
               <input type="checkbox" name="terms" id="data" value="data" required>
             </minimum-field-values-fieldset-validation>
 
-            <section id="terms-fieldset-errors" data-error-container>
+            <section id="terms-fieldset-errors" data-pf-error-container>
               <ul>
-                <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-                <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
               </ul>
             </section>
           </fieldset>
         </form>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `)
@@ -89,7 +89,7 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
     privacy.checked = true
     privacy.dispatchEvent(new Event(`change`, {bubbles: true}))
 
-    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-visible][data-error-type="tooShort"]`)
+    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-pf-error-visible][data-pf-error-type="tooShort"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please choose 2 terms", errorElement.textContent)
@@ -121,7 +121,7 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
               fieldset="terms-fieldset"
               field-name="terms"
               error-container-aria="terms-fieldset-errors-aria"
-              data-validation="focusout"
+              data-pf-validation="focusout"
             >
               <input type="checkbox" name="terms" id="privacy" value="privacy" required>
               <input type="checkbox" name="terms" id="service" value="service" required>
@@ -130,17 +130,17 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
 
             <button>Other focusable element</button>
 
-            <section id="terms-fieldset-errors" data-error-container>
+            <section id="terms-fieldset-errors" data-pf-error-container>
               <ul>
-                <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-                <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
               </ul>
             </section>
           </fieldset>
         </form>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `)
@@ -162,7 +162,7 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
     privacy.checked = true
     privacy.dispatchEvent(new FocusEvent(`focusout`, {bubbles: true, relatedTarget: button}))
 
-    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-visible][data-error-type="tooShort"]`)
+    const errorElement = document.querySelector(`#terms-fieldset-errors li[data-pf-error-visible][data-pf-error-type="tooShort"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please choose 2 terms", errorElement.textContent)
@@ -200,17 +200,17 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
               <input type="checkbox" name="terms" id="data" value="data">
             </minimum-field-values-fieldset-validation>
 
-            <section id="terms-fieldset-errors" data-error-container>
+            <section id="terms-fieldset-errors" data-pf-error-container>
               <ul>
-                <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-                <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
               </ul>
             </section>
           </fieldset>
         </form>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `)
@@ -225,7 +225,7 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
     await new Promise((resolve) => {
       const handler = (event) => {
         event.preventDefault()
-        const errorElement = document.querySelector(`#terms-fieldset-errors li[data-visible][data-error-type="tooShort"]`)
+        const errorElement = document.querySelector(`#terms-fieldset-errors li[data-pf-error-visible][data-pf-error-type="tooShort"]`)
 
         assert.isNotNull(errorElement)
         assert.equal("‼️ Please choose 2 terms", errorElement.textContent)
@@ -245,7 +245,7 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
     await new Promise((resolve) => {
       form.addEventListener(`submit`, (event) => {
         event.preventDefault()
-        const errorElement = document.querySelector(`#terms-fieldset-errors li[data-visible][data-error-type="tooShort"]`)
+        const errorElement = document.querySelector(`#terms-fieldset-errors li[data-pf-error-visible][data-pf-error-type="tooShort"]`)
 
         assert.isNull(errorElement)
 

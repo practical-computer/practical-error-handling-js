@@ -11,39 +11,39 @@ export function generateValidationMessage(element) {
 }
 
 /**
- * Checks if the given `element` has `data-validation == "input"`
+ * Checks if the given `element` has `data-pf-validation == "input"`
  * @param {Element} element
- * @return {boolean} Returns true if the element does not have `data-validation == "input"`
+ * @return {boolean} Returns true if the element does not have `data-pf-validation == "input"`
  */
 export function skipInputValidation(element) {
-  return !(element.getAttribute(`data-validation`) === "input")
+  return !(element.getAttribute(`data-pf-validation`) === "input")
 }
 
 /**
- * Checks if the given `element` has `data-validation == "change"`
+ * Checks if the given `element` has `data-pf-validation == "change"`
  * @param {Element} element
- * @return {boolean} Returns true if the element does not have `data-validation == "change"`
+ * @return {boolean} Returns true if the element does not have `data-pf-validation == "change"`
  */
 export function skipChangeValidation(element) {
-  return !(element.getAttribute(`data-validation`) === "change")
+  return !(element.getAttribute(`data-pf-validation`) === "change")
 }
 
 /**
- * Checks if the given `element` has `data-validation == "focusout"`
+ * Checks if the given `element` has `data-pf-validation == "focusout"`
  * @param {Element} element
- * @return {boolean} Returns true if the element does not have `data-validation == "focusout"`
+ * @return {boolean} Returns true if the element does not have `data-pf-validation == "focusout"`
  */
 export function skipFocusoutValidation(element) {
-  return !(element.getAttribute(`data-validation`) === "focusout")
+  return !(element.getAttribute(`data-pf-validation`) === "focusout")
 }
 
 /**
- * Checks if the given `element` given `element` has `data-validation == "skip"`
+ * Checks if the given `element` given `element` has `data-pf-validation == "skip"`
  * @param {Element} element
- * @return {boolean} Returns true if the element has `data-validation == "change"`
+ * @return {boolean} Returns true if the element has `data-pf-validation == "change"`
  */
 export function skipValidation(element) {
-  return (element.getAttribute(`data-validation`) === "skip")
+  return (element.getAttribute(`data-pf-validation`) === "skip")
 }
 
 /**
@@ -74,12 +74,12 @@ export function setValidityStateAttributes(element, isValid) {
 
 /**
  * Used for the initial loading of the given `form`, calls {@link reflectConstraintValidationForElement} for each
- * non-blank item in `form.element` that does not have a `data-initial-load-errors`
+ * non-blank item in `form.element` that does not have a `data-pf-initial-load-errors`
  * @params {FormElement} form the form to reflect the initial Constraint Validation state for
  */
 export function reflectConstraintValidationForInitialLoad(form) {
   for(const element of form.elements) {
-    if(element.hasAttribute(`data-initial-load-errors`)) {
+    if(element.hasAttribute(`data-pf-initial-load-errors`)) {
       continue; // do not change any elements that have server-side errors
     }
     if(element.value !=="" ){

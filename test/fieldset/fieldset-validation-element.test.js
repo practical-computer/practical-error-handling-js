@@ -32,17 +32,17 @@ suite('ErrorHandlingElement', async () => {
               <input type="checkbox" name="service" required>
             </custom-fieldset-validation>
 
-            <section id="terms-fieldset-errors" data-error-container>
+            <section id="terms-fieldset-errors" data-pf-error-container>
               <ul>
-                <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-                <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
               </ul>
             </section>
           </fieldset>
         </form>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `)

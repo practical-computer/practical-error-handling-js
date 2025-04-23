@@ -28,7 +28,7 @@ export function clearErrorListForFieldset(fieldset) {
  * Renders the given custom message + type pair for the given fieldset
  * calls {@link clearErrorList } for the given `fieldset`
  *
- * replaces the error list to include that message (marked as `data-visible`) and any `preserved` errors
+ * replaces the error list to include that message (marked as `data-pf-error-visible`) and any `preserved` errors
  *
  * @param {FieldsetElement} fieldset
  */

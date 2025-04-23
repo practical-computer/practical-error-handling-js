@@ -6,20 +6,20 @@ suite('Rendering', async () => {
   test(`error list cleaning`, async () => {
     const errorList = await fixture(html`
       <ul>
-        <li data-visible data-error-type="error_1">An ad-hoc error 1</li>
-        <li data-visible data-error-type="error_2">An ad-hoc error 2</li>
-        <li data-visible data-error-type="custom_1" data-preserve>Preserved error 1</li>
-        <li data-error-type="custom_3" data-preserve>Preserved error 3</li>
+        <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error 1</li>
+        <li data-pf-error-visible data-pf-error-type="error_2">An ad-hoc error 2</li>
+        <li data-pf-error-visible data-pf-error-type="custom_1" data-pf-error-preserve>Preserved error 1</li>
+        <li data-pf-error-type="custom_3" data-pf-error-preserve>Preserved error 3</li>
       </ul>
     `)
 
     assert.equal(4, errorList.querySelectorAll(`li`).length)
-    assert.equal(3, errorList.querySelectorAll(`[data-visible]`).length)
+    assert.equal(3, errorList.querySelectorAll(`[data-pf-error-visible]`).length)
 
     Rendering.clearErrorList(errorList)
 
     assert.equal(2, errorList.querySelectorAll(`li`).length)
-    assert.equal(0, errorList.querySelectorAll(`[data-visible]`).length)
+    assert.equal(0, errorList.querySelectorAll(`[data-pf-error-visible]`).length)
   })
 
   test(`clearErrorListsInForm`, async() => {
@@ -27,42 +27,42 @@ suite('Rendering', async () => {
       <form aria-describedby="fallback-error-section">
         <section>
           <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-            <section id="name-field-errors" data-error-container>
+            <section id="name-field-errors" data-pf-error-container>
               <ul>
-                <li data-preserve data-error-type="valueMissing">The preserved message</li>
-                <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+                <li data-pf-error-preserve data-pf-error-type="valueMissing">The preserved message</li>
+                <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
               </ul>
             </section>
         </section>
 
         <section>
           <input type="email" id="email-field" aria-describedby="email-field-errors" required>
-            <section id="email-field-errors" data-error-container>
+            <section id="email-field-errors" data-pf-error-container>
               <ul>
-                <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-                <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+                <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
               </ul>
             </section>
         </section>
 
-        <section id="fallback-error-section" data-error-container>
+        <section id="fallback-error-section" data-pf-error-container>
           <ul>
-            <li data-visible data-error-type="error_1">An ad-hoc fallback error 1</li>
-            <li data-visible data-error-type="custom_1" data-preserve>Preserved fallback error</li>
+            <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc fallback error 1</li>
+            <li data-pf-error-visible data-pf-error-type="custom_1" data-pf-error-preserve>Preserved fallback error</li>
           </ul>
         </section>
       </form>
     `)
 
-    assert.equal(2, document.querySelectorAll(`#name-field-errors [data-error-type]`).length)
-    assert.equal(2, document.querySelectorAll(`#email-field-errors [data-error-type]`).length)
-    assert.equal(2, document.querySelectorAll(`#fallback-error-section [data-error-type]`).length)
+    assert.equal(2, document.querySelectorAll(`#name-field-errors [data-pf-error-type]`).length)
+    assert.equal(2, document.querySelectorAll(`#email-field-errors [data-pf-error-type]`).length)
+    assert.equal(2, document.querySelectorAll(`#fallback-error-section [data-pf-error-type]`).length)
 
     Rendering.clearErrorListsInForm(form)
 
-    assert.equal(1, document.querySelectorAll(`#name-field-errors [data-error-type]`).length)
-    assert.equal(0, document.querySelectorAll(`#email-field-errors [data-error-type]`).length)
-    assert.equal(1, document.querySelectorAll(`#fallback-error-section [data-error-type]`).length)
+    assert.equal(1, document.querySelectorAll(`#name-field-errors [data-pf-error-type]`).length)
+    assert.equal(0, document.querySelectorAll(`#email-field-errors [data-pf-error-type]`).length)
+    assert.equal(1, document.querySelectorAll(`#fallback-error-section [data-pf-error-type]`).length)
   })
 
   test(`errorMessageListItem`, async() => {
@@ -71,35 +71,35 @@ suite('Rendering', async () => {
         <p>Some content</p>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `)
 
     const itemElement = Rendering.errorMessageListItem("An error message", "a-custom-type")
 
-    assert.equal("a-custom-type", itemElement.getAttribute(`data-error-type`))
-    assert.equal("An error message", itemElement.querySelector(`[data-error-message]`).textContent)
+    assert.equal("a-custom-type", itemElement.getAttribute(`data-pf-error-type`))
+    assert.equal("An error message", itemElement.querySelector(`[data-pf-error-message]`).textContent)
     assert.equal("‼️ An error message", itemElement.textContent)
-    assert.equal(false, itemElement.hasAttribute(`data-preserve`))
+    assert.equal(false, itemElement.hasAttribute(`data-pf-error-preserve`))
 
-    itemElement.setAttribute(`data-preserve`, true)
-    assert.equal(true, itemElement.hasAttribute(`data-preserve`))
+    itemElement.setAttribute(`data-pf-error-preserve`, true)
+    assert.equal(true, itemElement.hasAttribute(`data-pf-error-preserve`))
   })
 
   test(`renderConstraintValidationMessageForElement: the input is valid`, async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors" data-error-container>
+        <section id="name-field-errors" data-pf-error-container>
           <ul>
-            <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-            <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+            <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+            <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
           </ul>
         </section>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -114,7 +114,7 @@ suite('Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#name-field-errors li`).length)
 
-    const errorElement = document.querySelector(`#name-field-errors li[data-visible][data-error-type="valueMissing"]`)
+    const errorElement = document.querySelector(`#name-field-errors li[data-pf-error-visible][data-pf-error-type="valueMissing"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please fill out this field.", errorElement.textContent)
@@ -129,15 +129,15 @@ suite('Rendering', async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors" data-error-container>
+        <section id="name-field-errors" data-pf-error-container>
           <ul>
-            <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-            <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+            <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+            <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
           </ul>
         </section>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -152,7 +152,7 @@ suite('Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#name-field-errors li`).length)
 
-    const errorElement = document.querySelector(`#name-field-errors li[data-visible][data-error-type="valueMissing"]`)
+    const errorElement = document.querySelector(`#name-field-errors li[data-pf-error-visible][data-pf-error-type="valueMissing"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please fill out this field.", errorElement.textContent)
@@ -162,12 +162,12 @@ suite('Rendering', async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors" data-error-container>
+        <section id="name-field-errors" data-pf-error-container>
           <ul></ul>
         </section>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -182,7 +182,7 @@ suite('Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#name-field-errors li`).length)
 
-    const errorElement = document.querySelector(`#name-field-errors li[data-visible][data-error-type="valueMissing"]`)
+    const errorElement = document.querySelector(`#name-field-errors li[data-pf-error-visible][data-pf-error-type="valueMissing"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please fill out this field.", errorElement.textContent)
@@ -192,15 +192,15 @@ suite('Rendering', async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors" data-error-container>
+        <section id="name-field-errors" data-pf-error-container>
           <ul>
-            <li data-preserve data-error-type="valueMissing">The preserved message</li>
-            <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+            <li data-pf-error-preserve data-pf-error-type="valueMissing">The preserved message</li>
+            <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
           </ul>
         </section>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -215,25 +215,25 @@ suite('Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#name-field-errors li`).length)
 
-    const errorElement = document.querySelector(`#name-field-errors li[data-visible][data-error-type="valueMissing"]`)
+    const errorElement = document.querySelector(`#name-field-errors li[data-pf-error-visible][data-pf-error-type="valueMissing"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("The preserved message", errorElement.textContent)
   })
 
-  test(`renderConstraintValidationMessageForElement: keeps the given preserved message, removing the data-visible attribute`, async () => {
+  test(`renderConstraintValidationMessageForElement: keeps the given preserved message, removing the data-pf-error-visible attribute`, async () => {
     const container = await fixture(html`
       <div>
         <input type="text" id="name-field" aria-describedby="name-field-errors" required>
-        <section id="name-field-errors" data-error-container>
+        <section id="name-field-errors" data-pf-error-container>
           <ul>
-            <li data-preserve data-error-type="valueMissing">The preserved message</li>
-            <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+            <li data-pf-error-preserve data-pf-error-type="valueMissing">The preserved message</li>
+            <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
           </ul>
         </section>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -248,7 +248,7 @@ suite('Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#name-field-errors li`).length)
 
-    const errorElement = document.querySelector(`#name-field-errors li[data-visible][data-error-type="valueMissing"]`)
+    const errorElement = document.querySelector(`#name-field-errors li[data-pf-error-visible][data-pf-error-type="valueMissing"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("The preserved message", errorElement.textContent)
@@ -259,8 +259,8 @@ suite('Rendering', async () => {
 
     assert.equal(1, document.querySelectorAll(`#name-field-errors li`).length)
 
-    assert.equal(false, errorElement.hasAttribute(`data-visible`))
-    assert.equal(true, errorElement.hasAttribute(`data-preserve`))
+    assert.equal(false, errorElement.hasAttribute(`data-pf-error-visible`))
+    assert.equal(true, errorElement.hasAttribute(`data-pf-error-preserve`))
     assert.equal("The preserved message", errorElement.textContent)
   })
 })
@@ -272,16 +272,16 @@ suite(`renderConstraintValidationMessageForElement: different input types`, asyn
         <fieldset>
           <input type="radio" name="terms" id="terms-field-privacy" value="privacy" aria-describedby="terms-field-errors" required>
           <input type="radio" name="terms" id="terms-field-service" value="service" aria-describedby="terms-field-errors">
-          <section id="terms-field-errors" data-error-container>
+          <section id="terms-field-errors" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
             </ul>
           </section>
         </fieldset>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -299,7 +299,7 @@ suite(`renderConstraintValidationMessageForElement: different input types`, asyn
 
     assert.equal(1, document.querySelectorAll(`#terms-field-errors li`).length)
 
-    const errorElement = document.querySelector(`#terms-field-errors li[data-visible][data-error-type="valueMissing"]`)
+    const errorElement = document.querySelector(`#terms-field-errors li[data-pf-error-visible][data-pf-error-type="valueMissing"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please select one of these options.", errorElement.textContent)
@@ -318,16 +318,16 @@ suite(`renderConstraintValidationMessageForElement: different input types`, asyn
         <fieldset>
           <input type="checkbox" name="terms" id="terms-field-privacy" value="privacy" aria-describedby="terms-field-errors" required>
           <input type="checkbox" name="terms" id="terms-field-service" value="service" aria-describedby="terms-field-errors" required>
-          <section id="terms-field-errors" data-error-container>
+          <section id="terms-field-errors" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
             </ul>
           </section>
         </fieldset>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -345,7 +345,7 @@ suite(`renderConstraintValidationMessageForElement: different input types`, asyn
 
     assert.equal(1, document.querySelectorAll(`#terms-field-errors li`).length)
 
-    const errorElement = document.querySelector(`#terms-field-errors li[data-visible][data-error-type="valueMissing"]`)
+    const errorElement = document.querySelector(`#terms-field-errors li[data-pf-error-visible][data-pf-error-type="valueMissing"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please check this box if you want to proceed.", errorElement.textContent)
@@ -364,23 +364,23 @@ suite(`renderConstraintValidationMessageForElement: different input types`, asyn
         <fieldset>
           <input type="checkbox" name="terms" id="terms-field-privacy" value="privacy" aria-describedby="terms-privacy-errors" required>
           <input type="checkbox" name="terms" id="terms-field-service" value="service" aria-describedby="terms-service-errors" required>
-          <section id="terms-privacy-errors" data-error-container>
+          <section id="terms-privacy-errors" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
             </ul>
           </section>
 
-          <section id="terms-service-errors" data-error-container>
+          <section id="terms-service-errors" data-pf-error-container>
             <ul>
-              <li data-visible data-error-type="error_1">An ad-hoc error from the initial load</li>
-              <li data-visible data-error-type="error_2">Another ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error from the initial load</li>
+              <li data-pf-error-visible data-pf-error-type="error_2">Another ad-hoc error from the initial load</li>
             </ul>
           </section>
         </fieldset>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `);
@@ -399,7 +399,7 @@ suite(`renderConstraintValidationMessageForElement: different input types`, asyn
     assert.equal(1, document.querySelectorAll(`#terms-privacy-errors li`).length)
     assert.equal(2, document.querySelectorAll(`#terms-service-errors li`).length)
 
-    const errorElement = document.querySelector(`#terms-privacy-errors li[data-visible][data-error-type="valueMissing"]`)
+    const errorElement = document.querySelector(`#terms-privacy-errors li[data-pf-error-visible][data-pf-error-type="valueMissing"]`)
 
     assert.isNotNull(errorElement)
     assert.equal("‼️ Please check this box if you want to proceed.", errorElement.textContent)

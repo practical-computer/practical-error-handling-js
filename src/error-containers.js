@@ -3,16 +3,16 @@ import { generateValidationMessage } from './element-utilities.js'
 
 /**
  * Returns the ID for the given `element`'s `aria-describedby` attribute of the element that has a
- * `data-error-container` attribute`
+ * `data-pf-error-container` attribute`
  * @param {Element} element
- * @returns {string|undefined} the `aria-describedby` attribute if present and the element has the `data-error-container` attribute`
+ * @returns {string|undefined} the `aria-describedby` attribute if present and the element has the `data-pf-error-container` attribute`
  */
 export function getErrorContainerID(element) {
   const errorContainerID = element.getAttribute(`aria-describedby`)
   if(!errorContainerID || errorContainerID == ''){ return }
 
   return errorContainerID.split(" ").find((x) => {
-    return document.getElementById(x)?.hasAttribute(`data-error-container`)
+    return document.getElementById(x)?.hasAttribute(`data-pf-error-container`)
   })
 }
 
@@ -53,16 +53,16 @@ export function getErrorListFromContainer(container) {
 }
 
 /**
- * Returns the `NodeList` of elements inside the given `errorListElement` with `data-preserve`
+ * Returns the `NodeList` of elements inside the given `errorListElement` with `data-pf-error-preserve`
  * @param {Element} element
- * @returns {NodeList} All elements with the `data-preserve` attribute
+ * @returns {NodeList} All elements with the `data-pf-error-preserve` attribute
  */
 export function getPreservedErrors(errorListElement) {
-  return errorListElement.querySelectorAll(`:scope > [data-preserve]`)
+  return errorListElement.querySelectorAll(`:scope > [data-pf-error-preserve]`)
 }
 
 /**
- * Checks the given `errorListElement` for any preserved errors ({@link getPreservedErrors}) where the `data-error-type`
+ * Checks the given `errorListElement` for any preserved errors ({@link getPreservedErrors}) where the `data-pf-error-type`
  * matches` `type`
  * @params {Element} {@link getErrorList}
  * @params {string} type the error type
@@ -73,7 +73,7 @@ export function hasPreservedErrorForType(errorListElement, type) {
 }
 
 /**
- * Checks the given `errorListElement` for any preserved errors ({@link getPreservedErrors}) where the `data-error-type`
+ * Checks the given `errorListElement` for any preserved errors ({@link getPreservedErrors}) where the `data-pf-error-type`
  * matches` `type` and returns the first match if present
  * @params {Element} {@link getErrorList}
  * @params {string} type the error type
@@ -81,27 +81,27 @@ export function hasPreservedErrorForType(errorListElement, type) {
  */
 export function getPreservedErrorForType(errorListElement, type) {
   return [...getPreservedErrors(errorListElement)].find((x) => {
-    return x.getAttribute(`data-error-type`)?.toString() == type.toString()
+    return x.getAttribute(`data-pf-error-type`)?.toString() == type.toString()
   })
 }
 
 /**
- * Marks the given element as a preserved error message, with the `data-preserve` attribute
+ * Marks the given element as a preserved error message, with the `data-pf-error-preserve` attribute
  * @params {Element} element the error element to mark as preserved
  */
 export function markAsPreservedError(element) {
-  element.setAttribute(`data-preserve`, true)
+  element.setAttribute(`data-pf-error-preserve`, true)
 }
 
 /**
- * Returns the `element` that has the given `data-error-type` if it's present.
+ * Returns the `element` that has the given `data-pf-error-type` if it's present.
  * @params {Element} {@link getErrorList}
  * @params {string} type the error type
  * @returns {Element|null}
  */
 export function getErrorForType(errorListElement, type) {
-  return [...errorListElement.querySelectorAll(`[data-error-type]`)].find((x) => {
-    return x.getAttribute(`data-error-type`)?.toString() == type.toString()
+  return [...errorListElement.querySelectorAll(`[data-pf-error-type]`)].find((x) => {
+    return x.getAttribute(`data-pf-error-type`)?.toString() == type.toString()
   })
 }
 

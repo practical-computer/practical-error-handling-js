@@ -19,22 +19,22 @@ suite('ErrorHandlingElement', async () => {
         <custom-error-handling>
           <form id="test-form" aria-describedby='test-form-error-container'>
             <input type="email" id="email-field" aria-describedby="email-field-errors">
-            <section id="email-field-errors" data-error-container>
+            <section id="email-field-errors" data-pf-error-container>
               <ul>
-                <li data-visible data-error-type="error_1">ad-hoc error message 1</li>
+                <li data-pf-error-visible data-pf-error-type="error_1">ad-hoc error message 1</li>
               </ul>
             </section>
 
-            <section id="test-form-error-container" data-error-container>
+            <section id="test-form-error-container" data-pf-error-container>
               <ul>
-                <li data-visible data-error-type="error_2">ad-hoc error message 2</li>
+                <li data-pf-error-visible data-pf-error-type="error_2">ad-hoc error message 2</li>
               </ul>
             </section>
           </form>
         </custom-error-handling>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span> <span data-error-message></span></li>
+          <li><span>‼️</span> <span data-pf-error-message></span></li>
         </template>
       </div>
     `)

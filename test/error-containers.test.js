@@ -22,7 +22,7 @@ suite('Error Container Utilities', async () => {
     }, TypeError)
 
     const errorContainer = await fixture(html`
-       <section id="name-field-errors" data-error-container>
+       <section id="name-field-errors" data-pf-error-container>
        </section>
     `)
 
@@ -49,7 +49,7 @@ suite('Error Container Utilities', async () => {
 
     const error_2 = document.createElement(`li`)
     error_2.textContent = "error 1"
-    error_2.setAttribute(`data-preserve`, true)
+    error_2.setAttribute(`data-pf-error-preserve`, true)
     errorList.append(error_2)
 
     assert.equal(1, ErrorContainerUtils.getPreservedErrors(errorList).length)
@@ -70,7 +70,7 @@ suite('Error Container Utilities', async () => {
         <p>Some content</p>
 
         <template id="pf-error-list-item-template">
-          <li><span>‼️</span><span data-error-message></span></li>
+          <li><span>‼️</span><span data-pf-error-message></span></li>
         </template>
       </div>
     `)
@@ -79,17 +79,17 @@ suite('Error Container Utilities', async () => {
     assert.isNotNull(templateElement)
 
     const clone = templateElement.content.cloneNode(true).querySelector(`*:first-child`)
-    assert.equal(1, clone.querySelectorAll(`[data-error-message]`).length)
+    assert.equal(1, clone.querySelectorAll(`[data-pf-error-message]`).length)
   })
 
   test(`hasPreservedErrorForType/getPreservedErrorForType`, async() => {
     const errorList = await fixture(html`
       <ul>
-        <li data-visible data-error-type="error_1">An ad-hoc error 1</li>
-        <li data-visible data-error-type="error_2">An ad-hoc error 2</li>
-        <li data-visible data-error-type="custom_1" data-preserve>Preserved error 1</li>
-        <li data-error-type="custom_2" data-preserve>Preserved error 2</li>
-        <li data-preserve>Error without type</li>
+        <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error 1</li>
+        <li data-pf-error-visible data-pf-error-type="error_2">An ad-hoc error 2</li>
+        <li data-pf-error-visible data-pf-error-type="custom_1" data-pf-error-preserve>Preserved error 1</li>
+        <li data-pf-error-type="custom_2" data-pf-error-preserve>Preserved error 2</li>
+        <li data-pf-error-preserve>Error without type</li>
       </ul>
     `)
 
@@ -106,11 +106,11 @@ suite('Error Container Utilities', async () => {
   test(`getErrorForType`, async() => {
     const errorList = await fixture(html`
       <ul>
-        <li data-visible data-error-type="error_1">An ad-hoc error 1</li>
-        <li data-visible data-error-type="error_2">An ad-hoc error 2</li>
-        <li data-visible data-error-type="custom_1" data-preserve>Preserved error 1</li>
-        <li data-error-type="custom_2" data-preserve>Preserved error 3</li>
-        <li data-preserve>Error without type</li>
+        <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error 1</li>
+        <li data-pf-error-visible data-pf-error-type="error_2">An ad-hoc error 2</li>
+        <li data-pf-error-visible data-pf-error-type="custom_1" data-pf-error-preserve>Preserved error 1</li>
+        <li data-pf-error-type="custom_2" data-pf-error-preserve>Preserved error 3</li>
+        <li data-pf-error-preserve>Error without type</li>
       </ul>
     `)
 
@@ -122,14 +122,14 @@ suite('Error Container Utilities', async () => {
   test(`markAsPreservedError`, async () => {
     const errorList = await fixture(html`
       <ul>
-        <li data-visible data-error-type="error_1">An ad-hoc error 1</li>
-        <li data-visible data-error-type="error_2">Error to mark as preserved</li>
+        <li data-pf-error-visible data-pf-error-type="error_1">An ad-hoc error 1</li>
+        <li data-pf-error-visible data-pf-error-type="error_2">Error to mark as preserved</li>
       </ul>
     `)
 
     assert.equal(false, ErrorContainerUtils.hasPreservedErrorForType(errorList, `error_2`))
 
-    ErrorContainerUtils.markAsPreservedError(errorList.querySelector(`[data-error-type="error_2"]`))
+    ErrorContainerUtils.markAsPreservedError(errorList.querySelector(`[data-pf-error-type="error_2"]`))
 
     assert.equal(true, ErrorContainerUtils.hasPreservedErrorForType(errorList, `error_2`))
   })
