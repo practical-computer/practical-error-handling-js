@@ -1,5 +1,5 @@
 import {
-  liveInputValidationEventHandler,
+  inputValidationEventHandler,
   focusoutValidationEventHandler,
   validateFormSubmitEventHandler
 } from './event-handlers.js'
@@ -44,7 +44,7 @@ export class ErrorHandlingElement extends HTMLElement {
    * Prepares the custom element to be connected to the page.
    *
    * Attaches the following event handlers to the {@link ErrorHandlingElement#form}:
-   * - {@link liveInputValidationEventHandler}
+   * - {@link inputValidationEventHandler}
    * - {@link focusoutValidationEventHandler}
    * - {@link validateFormSubmitEventHandler}
    *
@@ -56,7 +56,7 @@ export class ErrorHandlingElement extends HTMLElement {
     if(!this.isConnected){ return }
 
     this.form.setAttribute('novalidate', '')
-    this.form.addEventListener('input', liveInputValidationEventHandler)
+    this.form.addEventListener('input', inputValidationEventHandler)
     this.form.addEventListener('focusout', focusoutValidationEventHandler)
     this.form.addEventListener('submit', validateFormSubmitEventHandler)
 

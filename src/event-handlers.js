@@ -35,11 +35,11 @@ export function validateFormSubmitEventHandler(event) {
 
 /**
  * Calls {@link reflectConstraintValidationForElement} if the `event.target` has
- * `data-live-validation` and does not have `data-skip-validation`
+ * `data-validation="input"` and does not have `data-skip-validation`
  *
  * @param {Event} event
  */
-export function liveInputValidationEventHandler(event) {
+export function inputValidationEventHandler(event) {
   let element = event.target
   if(skipInputValidation(element)){ return }
   if(skipValidation(element)){ return }
@@ -48,7 +48,7 @@ export function liveInputValidationEventHandler(event) {
 
 /**
  * Calls {@link reflectConstraintValidationForElement} if the `event.target` has
- * `data-focusout-validation` and does not have `data-skip-validation`
+ * `data-validation="focusout"` and does not have `data-skip-validation`
  * @param {Event} event
  */
 export function focusoutValidationEventHandler(event) {

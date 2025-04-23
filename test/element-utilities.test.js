@@ -23,48 +23,48 @@ suite('Element Utilities', async () => {
 
   test(`skipInputValidation`, async() => {
     const el = await fixture(html`
-      <input type="text" data-live-validation>
+      <input type="text" data-validation="input">
     `);
 
     assert.equal(false, ElementUtils.skipInputValidation(el))
 
-    el.removeAttribute(`data-live-validation`)
+    el.setAttribute(`data-validation`, `change`)
 
     assert.equal(true, ElementUtils.skipInputValidation(el))
   })
 
   test(`skipChangeValidation`, async() => {
     const el = await fixture(html`
-      <input type="text" data-change-validation>
+      <input type="text" data-validation="change">
     `);
 
     assert.equal(false, ElementUtils.skipChangeValidation(el))
 
-    el.removeAttribute(`data-change-validation`)
+    el.setAttribute(`data-validation`, `input`)
 
     assert.equal(true, ElementUtils.skipChangeValidation(el))
   })
 
   test(`skipFocusoutValidation`, async() => {
     const el = await fixture(html`
-      <input type="text" data-focusout-validation>
+      <input type="text" data-validation="focusout">
     `);
 
     assert.equal(false, ElementUtils.skipFocusoutValidation(el))
 
-    el.removeAttribute(`data-focusout-validation`)
+    el.setAttribute(`data-validation`, `input`)
 
     assert.equal(true, ElementUtils.skipFocusoutValidation(el))
   })
 
   test(`skipValidation`, async() => {
     const el = await fixture(html`
-      <input type="text" data-skip-validation>
+      <input type="text" data-validation="skip">
     `);
 
     assert.equal(true, ElementUtils.skipValidation(el))
 
-    el.removeAttribute(`data-skip-validation`)
+    el.setAttribute(`data-validation`, `input`)
 
     assert.equal(false, ElementUtils.skipValidation(el))
   })

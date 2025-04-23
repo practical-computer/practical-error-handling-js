@@ -51,7 +51,7 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
               fieldset="terms-fieldset"
               field-name="terms"
               error-container-aria="terms-fieldset-errors-aria"
-              data-change-validation
+              data-validation="change"
             >
               <input type="checkbox" name="terms" id="privacy" value="privacy" required>
               <input type="checkbox" name="terms" id="service" value="service" required>
@@ -121,7 +121,7 @@ suite('minimum-field-values-fieldset-validation-element', async () => {
               fieldset="terms-fieldset"
               field-name="terms"
               error-container-aria="terms-fieldset-errors-aria"
-              data-focusout-validation
+              data-validation="focusout"
             >
               <input type="checkbox" name="terms" id="privacy" value="privacy" required>
               <input type="checkbox" name="terms" id="service" value="service" required>

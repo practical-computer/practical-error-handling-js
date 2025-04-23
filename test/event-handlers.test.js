@@ -3,43 +3,43 @@ import { html, fixture, assert } from '@open-wc/testing';
 import * as EventHandlers from '@practical-computer/error-handling/event-handlers';
 
 suite('Event Handlers', async () => {
-  test(`liveInputValidationEventHandler: does nothing if no data-live-validation`, async() => {
+  test(`inputValidationEventHandler: does nothing if no data-validation`, async() => {
     const input = await fixture(html`
       <input type="email" required>
     `)
 
-    input.addEventListener(`test-event`, EventHandlers.liveInputValidationEventHandler)
+    input.addEventListener(`test-event`, EventHandlers.inputValidationEventHandler)
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
     assert.equal(false, input.hasAttribute(`aria-invalid`))
   })
 
-  test(`liveInputValidationEventHandler: fires if data-live-validation`, async() => {
+  test(`inputValidationEventHandler: fires if data-validation="input"`, async() => {
     const input = await fixture(html`
-      <input type="email" required data-live-validation>
+      <input type="email" required data-validation="input">
     `)
 
-    input.addEventListener(`test-event`, EventHandlers.liveInputValidationEventHandler)
+    input.addEventListener(`test-event`, EventHandlers.inputValidationEventHandler)
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
     assert.equal("true", input.getAttribute(`aria-invalid`))
   })
 
-  test(`liveInputValidationEventHandler: does nothing if data-live-validation but data-skip-validation`, async() => {
+  test(`inputValidationEventHandler: does nothing if data-validation="skip"`, async() => {
     const input = await fixture(html`
-      <input type="email" required data-live-validation data-skip-validation>
+      <input type="email" required data-validation="skip">
     `)
 
-    input.addEventListener(`test-event`, EventHandlers.liveInputValidationEventHandler)
+    input.addEventListener(`test-event`, EventHandlers.inputValidationEventHandler)
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
     assert.equal(false, input.hasAttribute(`aria-invalid`))
   })
 
-  test(`focusoutValidationEventHandler: does nothing if no data-focusout-validation`, async() => {
+  test(`focusoutValidationEventHandler: does nothing if no data-validation="input"`, async() => {
     const input = await fixture(html`
       <input type="email" required>
     `)
@@ -51,9 +51,9 @@ suite('Event Handlers', async () => {
     assert.equal(false, input.hasAttribute(`aria-invalid`))
   })
 
-  test(`focusoutValidationEventHandler: fires if data-focusout-validation-validation`, async() => {
+  test(`focusoutValidationEventHandler: fires if data-validation="focusout"`, async() => {
     const input = await fixture(html`
-      <input type="email" required data-focusout-validation>
+      <input type="email" required data-validation="focusout">
     `)
 
     input.addEventListener(`test-event`, EventHandlers.focusoutValidationEventHandler)
@@ -63,9 +63,9 @@ suite('Event Handlers', async () => {
     assert.equal("true", input.getAttribute(`aria-invalid`))
   })
 
-  test(`focusoutValidationEventHandler: does nothing if data-focusout-validation but data-skip-validation`, async() => {
+  test(`focusoutValidationEventHandler: does nothing if data-validation="skip"`, async() => {
     const input = await fixture(html`
-      <input type="email" required data-focusout-validation data-skip-validation>
+      <input type="email" required data-validation="skip">
     `)
 
     input.addEventListener(`test-event`, EventHandlers.focusoutValidationEventHandler)
