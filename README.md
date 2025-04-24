@@ -116,6 +116,8 @@ applyErrorMappingButton.addEventListener(`click`, (event) => {
 npm install @practical-computer/error-handling
 ```
 
+[npm](https://www.npmjs.com/package/@practical-computer/error-handling)
+
 Check [`package.json`](https://github.com/practical-computer/practical-error-handling-js/blob/main/package.json) for the list of exports.
 
 Include the utility CSS for hiding/showing messages, or [copy/paste into your codebase](https://github.com/practical-computer/practical-error-handling-js/blob/main/css/util.css):
