@@ -9,7 +9,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: cimg/node:20.4.0-browsers
+      - image: cimg/node:24.4.1-browsers
     steps:
       - checkout
       - browser-tools/install-browser-tools
