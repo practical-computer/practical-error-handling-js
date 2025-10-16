@@ -229,7 +229,7 @@ This method will skip any `form.elements` with blank values, or the `data-pf-ini
 
 ### Server-side errors
 
-Since the server is the source of truth for your application, you should **heavily** rely on it for validations. Make reuqests against the server to validate input, and have the form return a response with the status code of `422 Unprocessable Entity` and an error mapping JSON object (specified below).
+Since the server is the source of truth for your application, you should **heavily** rely on it for validations. Make requests against the server to validate input, and have the form return a response with the status code of `422 Unprocessable Entity` and an error mapping JSON object (specified below).
 
 The provided request processing functions expect a `422` response to indicate that the request has validation errors. It's an error, and the response's status code should reflect that.
 
