@@ -111,7 +111,7 @@ suite('Event Handlers', async () => {
     assert.equal(false, input.hasAttribute(`aria-invalid`))
   })
 
-  test(`validateFormSubmitEventHandler: marks the event as defaultPrevented if a form element is invalid`, async() => {
+  test(`validateFormSubmitEventHandler: marks the event as defaultPrevented if a form element is invalid and dispatches a pf:invalid-form-submit event`, async() => {
     const form = await fixture(html`
       <form>
         <input type="email" required>
@@ -124,6 +124,9 @@ suite('Event Handlers', async () => {
     const formSubmissionAssertion = new Promise((resolve) => {
       form.addEventListener(`test-event`, (event) => {
         assert.equal(true, event.defaultPrevented)
+      })
+
+      form.addEventListener(EventHandlers.InvalidFormSubmitEventName, (event) => {
         resolve()
       })
     })
@@ -131,5 +134,32 @@ suite('Event Handlers', async () => {
     form.dispatchEvent(new CustomEvent(`test-event`, { bubbles: true, cancelable: true }))
 
     await formSubmissionAssertion
+  })
+
+  test(`reenableAfterInvalidFormSubmitEventHandler: removes the disabled attribute for any child elements with ata-pf-invalid-form-submit=reenable`, async() => {
+    const parent = await fixture(html`
+      <section>
+        <button id="button-to-enable" disabled data-pf-invalid-form-submit="reenable"></button>
+        <button id="button-to-skip" disabled data-pf-invalid-form-submit="skip"></button>
+
+        <input id="input-to-enable" disabled data-pf-invalid-form-submit="reenable"></button>
+        <input id="input-to-skip" disabled data-pf-invalid-form-submit="skip"></button>
+
+        <p id="element-to-enable" disabled data-pf-invalid-form-submit="reenable"></button>
+        <p id="element-to-skip" disabled data-pf-invalid-form-submit="skip"></button>
+      </section>
+    `)
+
+    parent.addEventListener(`test-event`, EventHandlers.reenableAfterInvalidFormSubmitEventHandler)
+
+    parent.dispatchEvent(new CustomEvent(`test-event`))
+
+    assert.equal(false, parent.querySelector(`#button-to-enable`).hasAttribute(`disabled`))
+    assert.equal(false, parent.querySelector(`#input-to-enable`).hasAttribute(`disabled`))
+    assert.equal(false, parent.querySelector(`#element-to-enable`).hasAttribute(`disabled`))
+
+    assert.equal(true, parent.querySelector(`#button-to-skip`).hasAttribute(`disabled`))
+    assert.equal(true, parent.querySelector(`#input-to-skip`).hasAttribute(`disabled`))
+    assert.equal(true, parent.querySelector(`#element-to-skip`).hasAttribute(`disabled`))
   })
 })

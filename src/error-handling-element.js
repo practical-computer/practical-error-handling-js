@@ -2,6 +2,8 @@ import {
   changeValidationEventHandler,
   focusoutValidationEventHandler,
   inputValidationEventHandler,
+  InvalidFormSubmitEventName,
+  reenableAfterInvalidFormSubmitEventHandler,
   validateFormSubmitEventHandler
 } from './event-handlers.js';
 
@@ -62,6 +64,7 @@ export class ErrorHandlingElement extends HTMLElement {
     this.form.addEventListener('change', changeValidationEventHandler)
     this.form.addEventListener('focusout', focusoutValidationEventHandler)
     this.form.addEventListener('submit', validateFormSubmitEventHandler)
+    this.form.addEventListener(InvalidFormSubmitEventName, reenableAfterInvalidFormSubmitEventHandler)
 
     reflectConstraintValidationForInitialLoad(this.form)
   }
