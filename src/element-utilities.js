@@ -38,9 +38,9 @@ export function skipFocusoutValidation(element) {
 }
 
 /**
- * Checks if the given `element` given `element` has `data-pf-validation == "skip"`
+ * Checks if the given `element` has `data-pf-validation == "skip"`
  * @param {Element} element
- * @return {boolean} Returns true if the element has `data-pf-validation == "change"`
+ * @return {boolean} Returns true if the element has `data-pf-validation == "skip"`
  */
 export function skipValidation(element) {
   return (element.getAttribute(`data-pf-validation`) === "skip")
