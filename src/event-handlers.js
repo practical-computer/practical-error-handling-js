@@ -6,12 +6,17 @@ import {
   skipValidation
 } from './element-utilities.js';
 
+export const InvalidFormSubmitEventName = `pf:invalid-form-submit`
+
 /**
  * Calls {@link reflectConstraintValidationForElement} for every `element` in `event.currentTarget.elements`
  *
  * Calls `event.preventDefault()` if form it not valid (via `checkValidity()`)
  *
  * Focuses on the first invalid input, using `input:invalid`
+ *
+ * Dispatches a `pf:invalid-form-submit` on the form element for further processing
+ *
  * @param {Event} event
  */
 export function validateFormSubmitEventHandler(event) {
@@ -27,6 +32,7 @@ export function validateFormSubmitEventHandler(event) {
   // Prevent form submission if any of the validation checks fail.
   if (!isFormValid) {
     event.preventDefault();
+    formElement.dispatchEvent(new CustomEvent(InvalidFormSubmitEventName))
   }
 
   // Set the focus to the first invalid input.

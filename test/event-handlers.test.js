@@ -111,7 +111,7 @@ suite('Event Handlers', async () => {
     assert.equal(false, input.hasAttribute(`aria-invalid`))
   })
 
-  test(`validateFormSubmitEventHandler: marks the event as defaultPrevented if a form element is invalid`, async() => {
+  test(`validateFormSubmitEventHandler: marks the event as defaultPrevented if a form element is invalid and dispatches a pf:invalid-form-submit event`, async() => {
     const form = await fixture(html`
       <form>
         <input type="email" required>
@@ -124,6 +124,9 @@ suite('Event Handlers', async () => {
     const formSubmissionAssertion = new Promise((resolve) => {
       form.addEventListener(`test-event`, (event) => {
         assert.equal(true, event.defaultPrevented)
+      })
+
+      form.addEventListener(EventHandlers.InvalidFormSubmitEventName, (event) => {
         resolve()
       })
     })
