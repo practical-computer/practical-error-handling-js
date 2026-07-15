@@ -1,9 +1,10 @@
 import {
-  skipInputValidation,
+  reflectConstraintValidationForElement,
+  skipChangeValidation,
   skipFocusoutValidation,
-  skipValidation,
-  reflectConstraintValidationForElement
-} from './element-utilities.js'
+  skipInputValidation,
+  skipValidation
+} from './element-utilities.js';
 
 /**
  * Calls {@link reflectConstraintValidationForElement} for every `element` in `event.currentTarget.elements`
@@ -45,6 +46,20 @@ export function inputValidationEventHandler(event) {
   if(skipValidation(element)){ return }
   reflectConstraintValidationForElement(element)
 }
+
+/**
+ * Calls {@link reflectConstraintValidationForElement} if the `event.target` has
+ * `data-pf-validation="change"`
+ *
+ * @param {Event} event
+ */
+export function changeValidationEventHandler(event) {
+  let element = event.target
+  if(skipChangeValidation(element)){ return }
+  if(skipValidation(element)){ return }
+  reflectConstraintValidationForElement(element)
+}
+
 
 /**
  * Calls {@link reflectConstraintValidationForElement} if the `event.target` has
