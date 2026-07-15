@@ -1,4 +1,4 @@
-import { html, fixture, assert } from '@open-wc/testing';
+import { assert, fixture, html } from '@open-wc/testing';
 
 import * as EventHandlers from '@practical-computer/error-handling/event-handlers';
 
@@ -33,6 +33,42 @@ suite('Event Handlers', async () => {
     `)
 
     input.addEventListener(`test-event`, EventHandlers.inputValidationEventHandler)
+
+    input.dispatchEvent(new CustomEvent(`test-event`))
+
+    assert.equal(false, input.hasAttribute(`aria-invalid`))
+  })
+
+  test(`changeValidationEventHandler: does nothing if no data-pf-validation`, async() => {
+    const input = await fixture(html`
+      <input type="email" required>
+    `)
+
+    input.addEventListener(`test-event`, EventHandlers.changeValidationEventHandler)
+
+    input.dispatchEvent(new CustomEvent(`test-event`))
+
+    assert.equal(false, input.hasAttribute(`aria-invalid`))
+  })
+
+  test(`changeValidationEventHandler: fires if data-pf-validation="change"`, async() => {
+    const input = await fixture(html`
+      <input type="email" required data-pf-validation="change">
+    `)
+
+    input.addEventListener(`test-event`, EventHandlers.changeValidationEventHandler)
+
+    input.dispatchEvent(new CustomEvent(`test-event`))
+
+    assert.equal("true", input.getAttribute(`aria-invalid`))
+  })
+
+  test(`changeValidationEventHandler: does nothing if data-pf-validation="skip"`, async() => {
+    const input = await fixture(html`
+      <input type="email" required data-pf-validation="skip">
+    `)
+
+    input.addEventListener(`test-event`, EventHandlers.changeValidationEventHandler)
 
     input.dispatchEvent(new CustomEvent(`test-event`))
 
