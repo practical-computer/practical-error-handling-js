@@ -1,12 +1,13 @@
 import {
-  inputValidationEventHandler,
+  changeValidationEventHandler,
   focusoutValidationEventHandler,
+  inputValidationEventHandler,
   validateFormSubmitEventHandler
-} from './event-handlers.js'
+} from './event-handlers.js';
 
 import {
   reflectConstraintValidationForInitialLoad
-} from './element-utilities.js'
+} from './element-utilities.js';
 
 /**
  * @class
@@ -45,6 +46,7 @@ export class ErrorHandlingElement extends HTMLElement {
    *
    * Attaches the following event handlers to the {@link ErrorHandlingElement#form}:
    * - {@link inputValidationEventHandler}
+   * - {@link changeValidationEventHandler}
    * - {@link focusoutValidationEventHandler}
    * - {@link validateFormSubmitEventHandler}
    *
@@ -57,6 +59,7 @@ export class ErrorHandlingElement extends HTMLElement {
 
     this.form.setAttribute('novalidate', '')
     this.form.addEventListener('input', inputValidationEventHandler)
+    this.form.addEventListener('change', changeValidationEventHandler)
     this.form.addEventListener('focusout', focusoutValidationEventHandler)
     this.form.addEventListener('submit', validateFormSubmitEventHandler)
 
