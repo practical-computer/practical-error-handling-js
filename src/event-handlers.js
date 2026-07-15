@@ -78,3 +78,14 @@ export function focusoutValidationEventHandler(event) {
   if(skipValidation(element)){ return }
   reflectConstraintValidationForElement(element)
 }
+
+/**
+ * Calls `removeAttribute('disabled')` for every child `element` in `event.currentTarget`
+ * that has `data-pf-invalid-form-submit=reenable`
+ *
+ * @param {Event} event
+ */
+export function reenableAfterInvalidFormSubmitEventHandler(event) {
+  let element = event.target
+  element.querySelectorAll(`[data-pf-invalid-form-submit=reenable]`).forEach((x) => { x.removeAttribute(`disabled`) })
+}
